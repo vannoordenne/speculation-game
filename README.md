@@ -48,22 +48,6 @@ The Speculation Game is an interactive card-based design exercise where particip
 4. Present concept to group
 5. Engage in critical reflection
 
-## Deployment
-
-### Local Usage
-Open `index.html` in any modern web browser. Works offline except for Google Fonts.
-
-### Web Hosting
-Upload all files to:
-- GitHub Pages
-- Netlify
-- Vercel
-- Your organization's web server
-
-### Integration Options
-- Embed in learning management systems
-- Use with online workshop platforms
-- Share via QR codes for mobile access
 
 ## File Structure
 
@@ -141,7 +125,7 @@ All text content is in `index.html` and `script.js` for straightforward translat
 
 ## License and Attribution
 
-When using this tool in workshops or research, please provide appropriate attribution to The Speculation Game concept and mention this digital adaptation.
+When using this tool in workshops or research, please provide appropriate attribution to The Speculation Game concept by Tinker Ethical TechLab and mention this digital adaptation developed by Marise van Noordenne.
 
 ---
 
