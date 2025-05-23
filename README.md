@@ -127,6 +127,8 @@ All text content is in `index.html` and `script.js` for straightforward translat
 
 When using this tool in workshops or research, please provide appropriate attribution to The Speculation Game concept by Tinker Ethical TechLab and mention this digital adaptation developed by Marise van Noordenne.
 
+*This project was pair programmed with Cursor AI*
+
 ---
 
 The goal is not to predict the future, but to think critically about the implications of our technological choices. 
