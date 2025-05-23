@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>#The Speculation Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header-compact">
+            <div class="header-left">
+                <a href="index.html" class="title-link-compact">
+                    <h1 class="title-compact">The Speculation Game</h1>
+                    <p class="tagline-compact">Design for the future you fear.</p>
+                </a>
+            </div>
+            
+            <nav class="top-nav">
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="game.html" class="nav-item active">Game</a>
+                <a href="examples.html" class="nav-item">Examples</a>
+                <a href="guide.html" class="nav-item">Guide</a>
+            </nav>
+        </header>
+
+        <div class="page-header">
+            <h2 class="page-title">Play the Game</h2>
+            <p class="page-subtitle">Design speculative systems for ethical technology discussions</p>
+        </div>
+
+        <main class="main">
+            <!-- Step Progress Indicator -->
+            <div class="step-progress">
+                <div class="step-indicator active" data-step="1">1</div>
+                <div class="step-indicator" data-step="2">2</div>
+                <div class="step-indicator" data-step="3">3</div>
+                <div class="step-indicator" data-step="4">4</div>
+                <div class="step-indicator" data-step="5">5</div>
+            </div>
+
+            <section class="game-flow">
+                <!-- Step 1: Draw Cards -->
+                <div class="step-content active" id="step1">
+                    <div class="step-header">
+                        <h3>Step 1: Draw Cards</h3>
+                        <p>Get one card from each category to create your design constraints</p>
+                    </div>
+                    
+                    <div class="step-controls">
+                        <div class="controls-header">
+                            <div class="advanced-toggle-container">
+                                <label class="toggle-label">
+                                    <input type="checkbox" id="toggleAdvanced" class="toggle-input">
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-text">Advanced Tech</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button id="drawAllCards" class="btn-action">Draw Cards</button>
+                            <button id="drawIndividual" class="btn-action">Swap Card</button>
+                            <button id="resetCards" class="btn-action">Reset</button>
+                        </div>
+                    </div>
+
+                    <div class="cards-container" id="cardsContainer">
+                        <div class="card-slot" data-category="technology">
+                            <div class="card-inner">
+                                <div class="card-back">
+                                    <div class="card-back-content">
+                                        <div class="card-back-logo">⚡</div>
+                                        <div class="card-back-title">The Speculation Game</div>
+                                        <div class="card-back-subtitle">Design for the future you fear</div>
+                                    </div>
+                                </div>
+                                <div class="card-front">
+                                    <div class="card-header">
+                                        <h3 id="technologyHeader">Technology</h3>
+                                    </div>
+                                    <div class="card-content" id="technologyCard">
+                                        <div class="draw-prompt">Click "Draw Cards" or "Swap Card" to reveal a Technology card</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-slot" data-category="target">
+                            <div class="card-inner">
+                                <div class="card-back">
+                                    <div class="card-back-content">
+                                        <div class="card-back-logo">⚡</div>
+                                        <div class="card-back-title">The Speculation Game</div>
+                                        <div class="card-back-subtitle">Design for the future you fear</div>
+                                    </div>
+                                </div>
+                                <div class="card-front">
+                                    <div class="card-header">
+                                        <h3>Target Group</h3>
+                                    </div>
+                                    <div class="card-content" id="targetCard">
+                                        <div class="draw-prompt">Click "Draw Cards" or "Swap Card" to reveal a Target Group card</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-slot" data-category="revenue">
+                            <div class="card-inner">
+                                <div class="card-back">
+                                    <div class="card-back-content">
+                                        <div class="card-back-logo">⚡</div>
+                                        <div class="card-back-title">The Speculation Game</div>
+                                        <div class="card-back-subtitle">Design for the future you fear</div>
+                                    </div>
+                                </div>
+                                <div class="card-front">
+                                    <div class="card-header">
+                                        <h3>Revenue Model</h3>
+                                    </div>
+                                    <div class="card-content" id="revenueCard">
+                                        <div class="draw-prompt">Click "Draw Cards" or "Swap Card" to reveal a Revenue Model card</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-slot" data-category="problem">
+                            <div class="card-inner">
+                                <div class="card-back">
+                                    <div class="card-back-content">
+                                        <div class="card-back-logo">⚡</div>
+                                        <div class="card-back-title">The Speculation Game</div>
+                                        <div class="card-back-subtitle">Design for the future you fear</div>
+                                    </div>
+                                </div>
+                                <div class="card-front">
+                                    <div class="card-header">
+                                        <h3>Problem</h3>
+                                    </div>
+                                    <div class="card-content" id="problemCard">
+                                        <div class="draw-prompt">Click "Draw Cards" or "Swap Card" to reveal a Problem card</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-slot" data-category="purpose">
+                            <div class="card-inner">
+                                <div class="card-back">
+                                    <div class="card-back-content">
+                                        <div class="card-back-logo">⚡</div>
+                                        <div class="card-back-title">The Speculation Game</div>
+                                        <div class="card-back-subtitle">Design for the future you fear</div>
+                                    </div>
+                                </div>
+                                <div class="card-front">
+                                    <div class="card-header">
+                                        <h3>Primary Purpose</h3>
+                                    </div>
+                                    <div class="card-content" id="purposeCard">
+                                        <div class="draw-prompt">Click "Draw Cards" or "Swap Card" to reveal a Purpose card</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-navigation">
+                        <div></div>
+                        <button id="nextToStep2" class="btn-next" disabled title="Draw at least one card to continue">Next: Design →</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Design Your System -->
+                <div class="step-content" id="step2">
+                    <div class="step-header">
+                        <h3>Step 2: Design Your System</h3>
+                        <p>Use the combination of your cards to design a speculative technology, product, or service. Be creative but stay within the logic of your cards.</p>
+                    </div>
+
+                    <div class="concept-summary" id="conceptSummary2">
+                        <!-- Concept summary will be displayed here -->
+                    </div>
+
+                    <div class="concept-input-area">
+                        <h4>Describe Your Concept:</h4>
+                        <textarea id="conceptText" placeholder="Describe your speculative system here. What does it do? How does it work? Who uses it? What makes it compelling or concerning?"></textarea>
+                        <p class="input-hint">Be specific about how your system combines the elements from your cards. Consider both positive uses and potential negative implications.</p>
+                    </div>
+
+                    <div class="step-navigation">
+                        <button id="backToStep1" class="btn-back" title="Go back to change your cards">← Change Cards</button>
+                        <button id="nextToStep3" class="btn-next" title="Continue to prototyping">Next: Prototype →</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Develop Your Prototype -->
+                <div class="step-content" id="step3">
+                    <div class="step-header">
+                        <h3>Step 3: Develop Your Prototype</h3>
+                        <p>Use the tools and materials provided to make a digital or paper prototype. It can be as detailed as you feel comfortable with - a sketch or elaborate story is also fine.</p>
+                    </div>
+
+                    <div class="concept-summary" id="conceptSummary3">
+                        <!-- Concept summary will be displayed here -->
+                    </div>
+
+                    <div class="step-navigation">
+                        <button id="backToStep2" class="btn-back" title="Go back to design phase">← Back to Design</button>
+                        <button id="nextToStep4" class="btn-next" title="Continue to presentation">Next: Present →</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Present Your Concept -->
+                <div class="step-content" id="step4">
+                    <div class="step-header">
+                        <h3>Step 4: Present Your Concept</h3>
+                        <p>Share your concept with other players. What does it do? Who benefits? Who is harmed? Why would it be used?</p>
+                    </div>
+
+                    <div class="concept-summary" id="conceptSummary4">
+                        <!-- Concept summary will be displayed here -->
+                    </div>
+
+                    <div class="step-navigation">
+                        <button id="backToStep3" class="btn-back" title="Go back to prototyping">← Back to Prototype</button>
+                        <button id="nextToStep5" class="btn-next" title="Continue to reflection">Next: Reflect →</button>
+                    </div>
+                </div>
+
+                <!-- Step 5: Reflect and Discuss -->
+                <div class="step-content" id="step5">
+                    <div class="step-header">
+                        <h3>Step 5: Reflect and Discuss</h3>
+                        <p>Players can ask critical questions about the implications and impact of your system.</p>
+                    </div>
+
+                    <div class="concept-summary" id="conceptSummary5">
+                        <!-- Concept summary will be displayed here -->
+                    </div>
+                    
+                    <div class="questions">
+                        <div class="question-card">
+                            <h4>Critical Questions to Ask:</h4>
+                            <ul>
+                                <li>What is the hidden impact of your system?</li>
+                                <li>Can your system be used for harm as well as good?</li>
+                                <li>What would happen if this system became widely adopted?</li>
+                                <li>Who benefits from this system? Who is harmed?</li>
+                                <li>What assumptions does your design make about users?</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step-navigation">
+                        <button id="backToStep4" class="btn-back" title="Go back to presentation">← Back to Present</button>
+                        <button id="startOver" class="btn-next" title="Start a new game">Start New Game</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>The Speculation Game - A tool for exploring the ethical implications of emerging technologies</p>
+            <p class="copyright">© 2025 Marise van Noordenne</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

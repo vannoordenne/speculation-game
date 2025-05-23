@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facilitator Guide - The Speculation Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header-compact">
+            <div class="header-left">
+                <a href="index.html" class="title-link-compact">
+                    <h1 class="title-compact">The Speculation Game</h1>
+                    <p class="tagline-compact">Design for the future you fear.</p>
+                </a>
+            </div>
+            
+            <nav class="top-nav">
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="game.html" class="nav-item">Game</a>
+                <a href="examples.html" class="nav-item">Examples</a>
+                <a href="guide.html" class="nav-item active">Guide</a>
+            </nav>
+        </header>
+        
+        <div class="page-header">
+            <h2 class="page-title">Facilitator Guide</h2>
+            <p class="page-subtitle">Everything you need to run The Speculation Game</p>
+        </div>
+
+        <main class="main">
+            <!-- Quick Overview -->
+            <section class="guide-overview">
+                <div class="quick-facts-compact">
+                    <div class="fact-item">
+                        <span class="fact-label">Duration:</span>
+                        <span class="fact-value">60-90 min</span>
+                    </div>
+                    <div class="fact-separator">|</div>
+                    <div class="fact-item">
+                        <span class="fact-label">Group Size:</span>
+                        <span class="fact-value">3-6 people</span>
+                    </div>
+                    <div class="fact-separator">|</div>
+                    <div class="fact-item">
+                        <span class="fact-label">Objective:</span>
+                        <span class="fact-value">Explore tech ethics</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="facilitator-guide">
+                <!-- Workshop Setup -->
+                <div class="guide-section collapsible-section">
+                    <div class="section-header" onclick="toggleSection('setup')">
+                        <h4>Workshop Setup</h4>
+                        <span class="toggle-indicator" id="setup-indicator">+</span>
+                    </div>
+                    <div class="section-content" id="setup-content">
+                        <div class="setup-grid">
+                            <div class="setup-card">
+                                <h5>Materials Needed</h5>
+                                <ul>
+                                    <li>Computer/tablet for each group</li>
+                                    <li>Paper for sketching</li>
+                                    <li>Sticky notes</li>
+                                    <li>Markers/pens</li>
+                                </ul>
+                            </div>
+                            <div class="setup-card">
+                                <h5>Space Requirements</h5>
+                                <ul>
+                                    <li>Tables for collaborative work</li>
+                                    <li>Wall space for presentations</li>
+                                    <li>Projection screen (optional)</li>
+                                    <li>Moveable seating</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workshop Timeline -->
+                <div class="guide-section collapsible-section">
+                    <div class="section-header" onclick="toggleSection('timeline')">
+                        <h4>Workshop Timeline</h4>
+                        <span class="toggle-indicator" id="timeline-indicator">+</span>
+                    </div>
+                    <div class="section-content" id="timeline-content">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-time">10 min</div>
+                                <div class="timeline-content">
+                                    <h5>Opening & Introduction</h5>
+                                    <ul>
+                                        <li>Introduce speculative design concept</li>
+                                        <li>Explain the game objectives</li>
+                                        <li>Set expectations for uncomfortable ideas</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">30-40 min</div>
+                                <div class="timeline-content">
+                                    <h5>Card Drawing & System Design</h5>
+                                    <ul>
+                                        <li>Groups draw and review their cards</li>
+                                        <li>Brainstorm and design their systems</li>
+                                        <li>Develop specific implementation details</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">20-30 min</div>
+                                <div class="timeline-content">
+                                    <h5>Presentations & Discussion</h5>
+                                    <ul>
+                                        <li>Each group presents (3-5 minutes)</li>
+                                        <li>Q&A and critical questioning</li>
+                                        <li>Focus on implications, not feasibility</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">10-15 min</div>
+                                <div class="timeline-content">
+                                    <h5>Group Reflection</h5>
+                                    <ul>
+                                        <li>Identify patterns across concepts</li>
+                                        <li>Connect to current tech trends</li>
+                                        <li>Discuss actionable insights</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Facilitation Tips -->
+                <div class="guide-section collapsible-section">
+                    <div class="section-header" onclick="toggleSection('facilitation')">
+                        <h4>Facilitation Tips</h4>
+                        <span class="toggle-indicator" id="facilitation-indicator">+</span>
+                    </div>
+                    <div class="section-content" id="facilitation-content">
+                        <div class="tips-grid">
+                            <div class="tip-card">
+                                <h5>Encourage Speculation</h5>
+                                <p>Remind participants there are no "wrong" answers, only different futures to explore.</p>
+                            </div>
+                            <div class="tip-card">
+                                <h5>Push for Specifics</h5>
+                                <p>Ask "How exactly would this work?" and "What would this look like in practice?"</p>
+                            </div>
+                            <div class="tip-card">
+                                <h5>Focus on Implications</h5>
+                                <p>Guide discussion toward unintended consequences and ethical considerations.</p>
+                            </div>
+                            <div class="tip-card">
+                                <h5>Embrace Discomfort</h5>
+                                <p>The best concepts often feel unsettling - that's exactly the point of this exercise.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Common Challenges -->
+                <div class="guide-section collapsible-section">
+                    <div class="section-header" onclick="toggleSection('challenges')">
+                        <h4>Common Challenges & Solutions</h4>
+                        <span class="toggle-indicator" id="challenges-indicator">+</span>
+                    </div>
+                    <div class="section-content" id="challenges-content">
+                        <div class="challenges-list">
+                            <div class="challenge-item">
+                                <div class="challenge-problem">Participants are too optimistic</div>
+                                <div class="challenge-solution">→ Gently push them to consider negative implications and unintended consequences</div>
+                            </div>
+                            <div class="challenge-item">
+                                <div class="challenge-problem">Concepts are too abstract</div>
+                                <div class="challenge-solution">→ Ask for specific details about how the system would work in practice</div>
+                            </div>
+                            <div class="challenge-item">
+                                <div class="challenge-problem">Fear of being "wrong"</div>
+                                <div class="challenge-solution">→ Emphasize this is speculation - we're exploring possibilities, not predicting</div>
+                            </div>
+                            <div class="challenge-item">
+                                <div class="challenge-problem">Getting stuck on one card</div>
+                                <div class="challenge-solution">→ Remind them all cards must be incorporated somehow, even loosely</div>
+                            </div>
+                            <div class="challenge-item">
+                                <div class="challenge-problem">Too focused on technology</div>
+                                <div class="challenge-solution">→ Encourage equal consideration of human, social, and economic factors</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Discussion Questions -->
+                <div class="guide-section collapsible-section">
+                    <div class="section-header" onclick="toggleSection('questions')">
+                        <h4>Discussion Questions</h4>
+                        <span class="toggle-indicator" id="questions-indicator">+</span>
+                    </div>
+                    <div class="section-content" id="questions-content">
+                        <div class="questions-grid">
+                            <div class="questions-column">
+                                <h5>For Individual Concepts</h5>
+                                <ul class="question-list">
+                                    <li>What is the hidden impact of your system?</li>
+                                    <li>Can your system be used for harm as well as good?</li>
+                                    <li>What assumptions does your design make about users?</li>
+                                    <li>Who has power in this system? Who doesn't?</li>
+                                    <li>What happens if this system fails or is misused?</li>
+                                </ul>
+                            </div>
+                            <div class="questions-column">
+                                <h5>For Group Reflection</h5>
+                                <ul class="question-list">
+                                    <li>What patterns do you notice across all concepts?</li>
+                                    <li>Which concepts felt most plausible? Most disturbing?</li>
+                                    <li>How do these reflect current technological trends?</li>
+                                    <li>What can we learn about our present from these futures?</li>
+                                    <li>How might we shape technology to avoid harmful outcomes?</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Impossible Combinations -->
+                <div class="guide-section collapsible-section">
+                    <div class="section-header" onclick="toggleSection('impossible')">
+                        <h4>Handling Impossible Combinations</h4>
+                        <span class="toggle-indicator" id="impossible-indicator">+</span>
+                    </div>
+                    <div class="section-content" id="impossible-content">
+                        <p class="section-intro">When participants draw seemingly impossible or contradictory combinations:</p>
+                        
+                        <div class="options-grid">
+                            <div class="option-card">
+                                <h5>1. Re-draw One Card</h5>
+                                <p>Allow replacing one card that seems completely out of place. Use sparingly - "impossible" combinations often lead to the most interesting insights.</p>
+                            </div>
+                            <div class="option-card">
+                                <h5>2. Challenge Them to Make It Work</h5>
+                                <p>Encourage creative, satirical, or darkly humorous solutions. Ask: "In what world would this combination make sense?"</p>
+                            </div>
+                            <div class="option-card">
+                                <h5>3. Reframe the Problem</h5>
+                                <p>Think about how this could exist in a speculative, dystopian world. Sometimes forcing unlikely elements together reveals the most.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>The Speculation Game - A tool for exploring the ethical implications of emerging technologies</p>
+            <p class="copyright">© 2025 Marise van Noordenne</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleSection(sectionId) {
+            const content = document.getElementById(sectionId + '-content');
+            const indicator = document.getElementById(sectionId + '-indicator');
+            
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                indicator.textContent = '−';
+                indicator.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.display = 'none';
+                indicator.textContent = '+';
+                indicator.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Initialize all sections as collapsed except the first one
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = ['setup', 'timeline', 'facilitation', 'challenges', 'questions', 'impossible'];
+            sections.forEach((sectionId, index) => {
+                const content = document.getElementById(sectionId + '-content');
+                const indicator = document.getElementById(sectionId + '-indicator');
+                
+                if (index === 0) {
+                    // Keep first section open
+                    content.style.display = 'block';
+                    indicator.textContent = '−';
+                } else {
+                    // Close other sections
+                    content.style.display = 'none';
+                    indicator.textContent = '+';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
