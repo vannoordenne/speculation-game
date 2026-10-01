@@ -6,24 +6,26 @@ A digital tool for exploring the ethical implications of emerging technologies t
 
 ## Overview
 
-The Speculation Game is an interactive card-based design exercise where participants combine emerging technologies with target groups, revenue models, problems, and purposes to create speculative systems. This digital version facilitates workshops in face-to-face, online, or hybrid environments.
+The Speculation Game is an interactive card-based design exercise where participants combine technologies, target groups, funding models, problems, and strategies to create speculative systems. This digital version facilitates workshops in face-to-face, online, or hybrid environments.
+
+Based on **CORE v2.0** of the physical card deck.
 
 ## Core Features
 
 - **Random Card Drawing**: Draw from 5 main categories with one click
-- **Individual Card Mode**: Draw cards one at a time for controlled facilitation
-- **Advanced Technologies**: Optional extra category for complex scenarios
+- **Individual Card Mode**: Swap cards one at a time for controlled facilitation
+- **Twist Cards**: Optional sixth category when a combination feels too easy
 - **Card Reset**: Start fresh with new combinations
 - **Responsive Design**: Works across desktop, tablet, and mobile devices
 
 ## Card Categories
 
-1. **Technology Cards** (10): Core technologies like AI, VR/AR, Wearable Devices
-2. **Target Group Cards** (10): Children, Students, Employees, Elderly
-3. **Revenue Model Cards** (10): Subscriptions, Data Selling, Government Funding
-4. **Problem Cards** (10): Security, Health Monitoring, Education Efficiency
-5. **Primary Purpose Cards** (10): Optimize, Monitor, Heal, Connect
-6. **Advanced Technologies** (3): Synthetic Biology, Agentic AI, Digital Twins
+1. **Technology** (10): Wearable Technology, Ambient Surveillance, Smart Devices, AI, and more
+2. **Target Group** (10): Children, Students, Workers, Older Adults, Patients, Citizens
+3. **Funding Model** (10): Subscription, Advertising, Licensing, Marketplace Commission, and more
+4. **Problem** (10): Learning Challenges, Safety Risks, Social Isolation, Information Overload
+5. **Strategy** (10): Optimize, Monitor, Support, Protect, Influence, and more
+6. **Twist** (10, optional): No Opt-Out, Black Box, Scoring, Function Creep, and more
 
 ## Workshop Integration
 

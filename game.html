@@ -45,23 +45,18 @@
                 <div class="step-content active" id="step1">
                     <div class="step-header">
                         <h3>Step 1: Draw Cards</h3>
-                        <p>Get one card from each category to create your design constraints</p>
+                        <p>Draw one card from each category: Technology, Target Group, Funding Model, Problem, and Strategy.</p>
                     </div>
                     
                     <div class="step-controls">
                         <div class="controls-header">
-                            <div class="advanced-toggle-container">
-                                <label class="toggle-label">
-                                    <input type="checkbox" id="toggleAdvanced" class="toggle-input">
-                                    <span class="toggle-slider"></span>
-                                    <span class="toggle-text">Advanced Tech</span>
-                                </label>
-                            </div>
+                            <p class="controls-hint">Too easy? Draw a Twist. Impossible? Swap one card.</p>
                         </div>
                         
                         <div class="action-buttons">
                             <button id="drawAllCards" class="btn-action">Draw Cards</button>
                             <button id="drawIndividual" class="btn-action">Swap Card</button>
+                            <button id="drawTwist" class="btn-action btn-twist">Draw Twist</button>
                             <button id="resetCards" class="btn-action">Reset</button>
                         </div>
                     </div>
@@ -107,7 +102,7 @@
                             </div>
                         </div>
 
-                        <div class="card-slot" data-category="revenue">
+                        <div class="card-slot" data-category="funding">
                             <div class="card-inner">
                                 <div class="card-back">
                                     <div class="card-back-content">
@@ -118,10 +113,10 @@
                                 </div>
                                 <div class="card-front">
                                     <div class="card-header">
-                                        <h3>Revenue Model</h3>
+                                        <h3>Funding Model</h3>
                                     </div>
-                                    <div class="card-content" id="revenueCard">
-                                        <div class="draw-prompt">Click "Draw Cards" or "Swap Card" to reveal a Revenue Model card</div>
+                                    <div class="card-content" id="fundingCard">
+                                        <div class="draw-prompt">Click "Draw Cards" or "Swap Card" to reveal a Funding Model card</div>
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +142,7 @@
                             </div>
                         </div>
 
-                        <div class="card-slot" data-category="purpose">
+                        <div class="card-slot" data-category="strategy">
                             <div class="card-inner">
                                 <div class="card-back">
                                     <div class="card-back-content">
@@ -158,10 +153,30 @@
                                 </div>
                                 <div class="card-front">
                                     <div class="card-header">
-                                        <h3>Primary Purpose</h3>
+                                        <h3>Strategy</h3>
                                     </div>
-                                    <div class="card-content" id="purposeCard">
-                                        <div class="draw-prompt">Click "Draw Cards" or "Swap Card" to reveal a Purpose card</div>
+                                    <div class="card-content" id="strategyCard">
+                                        <div class="draw-prompt">Click "Draw Cards" or "Swap Card" to reveal a Strategy card</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-slot card-slot-twist" data-category="twist">
+                            <div class="card-inner">
+                                <div class="card-back">
+                                    <div class="card-back-content">
+                                        <div class="card-back-logo">⚡</div>
+                                        <div class="card-back-title">The Speculation Game</div>
+                                        <div class="card-back-subtitle">Optional Twist</div>
+                                    </div>
+                                </div>
+                                <div class="card-front">
+                                    <div class="card-header">
+                                        <h3>Twist</h3>
+                                    </div>
+                                    <div class="card-content" id="twistCard">
+                                        <div class="draw-prompt">Optional — click "Draw Twist" if the combination feels too easy</div>
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +193,7 @@
                 <div class="step-content" id="step2">
                     <div class="step-header">
                         <h3>Step 2: Design Your System</h3>
-                        <p>Use the combination of your cards to design a speculative technology, product, or service. Be creative but stay within the logic of your cards.</p>
+                        <p>Design your speculative, dystopian system from the combination of your cards. Strange or uncomfortable combinations are useful — they surface assumptions and tensions.</p>
                     </div>
 
                     <div class="concept-summary" id="conceptSummary2">
@@ -200,8 +215,8 @@
                 <!-- Step 3: Develop Your Prototype -->
                 <div class="step-content" id="step3">
                     <div class="step-header">
-                        <h3>Step 3: Develop Your Prototype</h3>
-                        <p>Use the tools and materials provided to make a digital or paper prototype. It can be as detailed as you feel comfortable with - a sketch or elaborate story is also fine.</p>
+                        <h3>Step 3: Build a Prototype</h3>
+                        <p>Build a quick prototype. It can be a sketch, storyboard, paper mock-up, or short narrative — just enough to make the system discussable.</p>
                     </div>
 
                     <div class="concept-summary" id="conceptSummary3">
@@ -217,8 +232,8 @@
                 <!-- Step 4: Present Your Concept -->
                 <div class="step-content" id="step4">
                     <div class="step-header">
-                        <h3>Step 4: Present Your Concept</h3>
-                        <p>Share your concept with other players. What does it do? Who benefits? Who is harmed? Why would it be used?</p>
+                        <h3>Step 4: Pitch</h3>
+                        <p>Pitch the concept and explain how it works. What does it do? Who benefits? Who is harmed? Why would it be used?</p>
                     </div>
 
                     <div class="concept-summary" id="conceptSummary4">
@@ -234,8 +249,8 @@
                 <!-- Step 5: Reflect and Discuss -->
                 <div class="step-content" id="step5">
                     <div class="step-header">
-                        <h3>Step 5: Reflect and Discuss</h3>
-                        <p>Players can ask critical questions about the implications and impact of your system.</p>
+                        <h3>Step 5: Reflect</h3>
+                        <p>Reflect on the benefits, risks, and consequences. Ask critical questions about the implications and impact of the system.</p>
                     </div>
 
                     <div class="concept-summary" id="conceptSummary5">

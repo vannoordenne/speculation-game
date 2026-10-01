@@ -1,266 +1,281 @@
-// Card Data
+// Card Data — The Speculation Game CORE v2.0
 const cardData = {
     technology: [
         {
-            title: "Wearable Devices",
-            subtitle: "(Smartwatch, Smart Glasses)",
-            description: "Devices you can wear that track information or provide notifications.",
-            examples: "Examples: Fitbit for health tracking, smart glasses for navigation."
+            title: 'Wearable Technology',
+            description: 'Technology worn on or close to the body that can sense, track, display, or respond to information, such as smartwatches, smart glasses, or biometric sensors.'
         },
         {
-            title: "Ambient Surveillance",
-            subtitle: "",
-            description: "Monitoring or recording of people without them actively noticing.",
-            examples: "Examples: Security cameras, motion detectors in public spaces."
+            title: 'Ambient Surveillance',
+            description: 'Technology that continuously monitors people, spaces, or behavior in the background, such as cameras, sensors, microphones, or location tracking.'
         },
         {
-            title: "Smart Home Devices",
-            subtitle: "",
-            description: "Connected devices that automate or control your home environment.",
-            examples: "Examples: Smart speakers (like Alexa), smart thermostats."
+            title: 'Smart Devices',
+            description: 'Connected physical objects that can sense, communicate, or respond to their environment, such as smart speakers or sensor-enabled objects.'
         },
         {
-            title: "Extended Reality (VR / AR)",
-            subtitle: "",
-            description: "Virtual Reality (VR) creates a fully immersive digital world. Augmented Reality (AR) adds digital information to the real world.",
-            examples: "Examples: VR gaming, AR filters on social media."
+            title: 'Extended Reality (VR/AR)',
+            description: 'Technology that creates immersive digital environments or adds digital layers to the physical world, such as VR headsets or AR filters.'
         },
         {
-            title: "Artificial Intelligence (AI)",
-            subtitle: "",
-            description: "Software that can learn, make decisions, or solve problems.",
-            examples: "Examples: Chatbots (like ChatGPT), image recognition software."
+            title: 'Artificial Intelligence',
+            description: 'Computer systems that generate, classify, predict, recommend, or make decisions based on data, such as chatbots, recommendation systems, or image recognition.'
         },
         {
-            title: "Humanoid Robots",
-            subtitle: "",
-            description: "Robots designed to look and act like humans.",
-            examples: "Examples: Sophia the Robot, customer service robots."
+            title: 'Humanoid Robots',
+            description: 'Robots designed to resemble or behave like humans, such as service robots, reception robots, or humanoid assistants.'
         },
         {
-            title: "Emotion Recognition",
-            subtitle: "",
-            description: "Technology that can detect human emotions from facial expressions or voice.",
-            examples: "Examples: Customer support systems that identify angry callers."
+            title: 'Emotion Recognition',
+            description: 'Technology that claims to infer emotions from signals such as facial expressions, voice, movement, or physiological data.'
         },
         {
-            title: "Predictive Policing",
-            subtitle: "",
-            description: "AI that predicts where crimes may occur based on data.",
-            examples: "Example: Police departments using software to assign patrols."
+            title: 'Predictive Analytics',
+            description: 'Technology that uses existing data to estimate what is likely to happen next, such as predicting behavior, demand, risk, or future events.'
         },
         {
-            title: "Autonomous Drones",
-            subtitle: "",
-            description: "Drones that can fly and complete tasks without human control.",
-            examples: "Examples: Delivery drones, surveillance drones."
+            title: 'Autonomous Drones',
+            description: 'Flying devices that can navigate, sense, or perform tasks with no or limited human control, such as delivery, inspection, mapping, or surveillance.'
         },
         {
-            title: "Brain-Computer Interfaces",
-            subtitle: "",
-            description: "Technology that connects the human brain directly to a computer.",
-            examples: "Examples: Neuralink (Elon Musk's brain chip), mind-controlled prosthetics."
-        }
+            title: 'Brain-Computer Interfaces',
+            description: 'Technology that enables communication between brain activity and a computer system, such as neural implants or brain-controlled assistive devices.'
+        },
     ],
     target: [
         {
-            title: "Children",
-            description: "Young users typically under 12 years old with limited autonomy.",
-            examples: "Examples: Elementary school students, kids using educational apps."
+            title: 'Children',
+            description: 'Young people with limited autonomy who may rely on adults to make decisions on their behalf, such as children at home, at school, or online.'
         },
         {
-            title: "Students",
-            description: "Learners in educational institutions from middle school to university.",
-            examples: "Examples: High school students, college students, online learners."
+            title: 'Students',
+            description: 'People taking part in formal or informal education, such as secondary school students, university students, or online learners.'
         },
         {
-            title: "Families",
-            description: "Household units with multiple generations and varying tech literacy.",
-            examples: "Examples: Parents with children, multi-generational households."
+            title: 'Families',
+            description: 'People within households with multiple generations and mixed tech literacy, for example parents with children or multi-generational households.'
         },
         {
-            title: "Employees",
-            description: "Working professionals in various industries and organizations.",
-            examples: "Examples: Office workers, remote employees, freelancers."
+            title: 'Older Adults',
+            description: 'Older people with different levels of independence and technological experience, such as retirees or people receiving care.'
         },
         {
-            title: "Elderly",
-            description: "Older adults typically over 65 with varying comfort with technology.",
-            examples: "Examples: Retirees, seniors in care facilities, aging in place."
+            title: 'Citizens',
+            description: 'People affected by public services, infrastructure, policies or decisions made by governments and institutions.'
         },
         {
-            title: "City Residents",
-            description: "People living in urban environments with dense populations.",
-            examples: "Examples: Metropolitan dwellers, apartment residents, commuters."
+            title: 'Travelers',
+            description: 'People moving between places temporarily, such as commuters, tourists, business travelers, or people using transport systems.'
         },
         {
-            title: "Travelers",
-            description: "People who move frequently between locations for business or leisure.",
-            examples: "Examples: Business travelers, tourists, digital nomads."
+            title: 'Consumers',
+            description: 'People choosing, buying, or using commercial products and services, both online and offline.'
         },
         {
-            title: "Consumers",
-            description: "General purchasers of goods and services in the marketplace.",
-            examples: "Examples: Online shoppers, retail customers, service users."
+            title: 'Patients',
+            description: 'People receiving or seeking healthcare, who may depend on professionals, institutions, or technologies for decisions about their health.'
         },
         {
-            title: "Healthcare Providers",
-            description: "Medical professionals and institutions delivering health services.",
-            examples: "Examples: Doctors, nurses, hospitals, clinics."
+            title: 'Online Communities',
+            description: 'People who interact, create, share, or organize through digital platforms, such as social media groups, gaming communities, or online forums.'
         },
         {
-            title: "Online Users",
-            description: "People who primarily interact through digital platforms and services.",
-            examples: "Examples: Social media users, gaming communities, remote workers."
-        }
+            title: 'Workers',
+            description: 'People performing paid work in different settings, such as employees, freelancers, platform workers, or remote workers.'
+        },
     ],
-    revenue: [
+    funding: [
         {
-            title: "Selling Personal Data",
-            description: "Collecting and selling user data to third parties.",
-            examples: "Example: Social media apps, free online tools."
+            title: 'Selling Personal Data',
+            description: 'Generates income by selling or providing access to user data to third parties, for example advertising platforms or data brokers.'
         },
         {
-            title: "Subscriptions",
-            description: "Regular payments for continued access to a service.",
-            examples: "Example: Netflix, Spotify."
+            title: 'Subscription',
+            description: 'Charges users recurring payments for continued access, for example streaming services, software subscriptions, or membership platforms.'
         },
         {
-            title: "Advertising",
-            description: "Generating income by showing ads to users.",
-            examples: "Example: Free mobile games, social media platforms."
+            title: 'Advertising',
+            description: 'Generates income by showing paid promotional content, for example social media platforms, news websites, or free mobile apps.'
         },
         {
-            title: "Pay-Per-Use",
-            description: "Users pay each time they use the service.",
-            examples: "Example: Ride-sharing apps, cloud storage."
+            title: 'Pay-Per-Use',
+            description: 'Charges users each time they access or use the product or service, for example mobility services, cloud computing, or shared equipment.'
         },
         {
-            title: "Freemium Model",
-            description: "Basic access is free, but advanced features require payment.",
-            examples: "Example: Spotify, premium mobile apps."
+            title: 'Freemium Model',
+            description: 'Offers basic access for free while charging for additional features, content, or services, for example productivity apps or online games.'
         },
         {
-            title: "Government Funding",
-            description: "Receiving financial support from public institutions.",
-            examples: "Example: Public health tracking systems, educational platforms."
+            title: 'Government Funding',
+            description: 'Is funded through public money, grants, subsidies, or government contracts, for example public transport systems, education platforms, or civic technology.'
         },
         {
-            title: "Microtransactions",
-            description: "Small in-app purchases for extra features or benefits.",
-            examples: "Example: Mobile games, avatar upgrades."
+            title: 'Microtransactions',
+            description: 'Generates income through small purchases for additional features, content, or advantages, for example in-game items, digital upgrades, or virtual goods.'
         },
         {
-            title: "One-Time Purchase",
-            description: "Users pay a single fee to access the product.",
-            examples: "Example: Software licences, digital art."
+            title: 'One-Time Purchase',
+            description: 'Charges a single payment for access to the product or service, for example software licenses, digital products, or physical devices.'
         },
         {
-            title: "Crowdsourcing Data",
-            description: "Users provide data which the company uses or sells.",
-            examples: "Example: Traffic apps like Waze, user feedback platforms."
+            title: 'Licensing',
+            description: 'Generates income by allowing others to use the technology, software, or intellectual property for a fee, for example enterprise software or patented technology.'
         },
         {
-            title: "Marketplace Commissions",
-            description: "The platform takes a percentage of each transaction made between buyers and sellers using the platform.",
-            examples: "Example: Etsy charges a commission on every sale made by sellers using its marketplace."
-        }
+            title: 'Marketplace Commission',
+            description: 'Takes a percentage or fixed fee from transactions between buyers and sellers, for example ticket marketplaces, accommodation platforms, or freelance platforms.'
+        },
     ],
     problem: [
         {
-            title: "Security and Safety",
-            description: "Keeping people safe from harm or crime.",
-            examples: "Example: Home security systems, emergency response apps."
+            title: 'Learning Challenges',
+            description: 'People struggle to learn effectively because education may not fit their needs, pace, or circumstances, for example in classrooms, online learning, or workplace training.'
         },
         {
-            title: "Health Monitoring",
-            description: "Tracking physical or mental health conditions.",
-            examples: "Example: Fitness trackers, mental health apps."
+            title: 'Health Challenges',
+            description: 'People struggle to understand, manage, or improve their physical health, for example medication, exercise, symptoms, or chronic care.'
         },
         {
-            title: "Education Efficiency",
-            description: "Making learning faster, cheaper, or more personalized.",
-            examples: "Example: Adaptive learning apps, digital classrooms."
+            title: 'Safety Risks',
+            description: 'People face risks of harm, accidents, or crime, for example at home, at work, while traveling, or in public spaces.'
         },
         {
-            title: "Workplace Productivity",
-            description: "Helping employees work faster or more effectively.",
-            examples: "Example: Time-tracking software, task automation tools."
+            title: 'Workplace Productivity',
+            description: 'People or organizations struggle to work efficiently, for example because of distractions, poor coordination, repetitive tasks, or limited time.'
         },
         {
-            title: "Social Connection",
-            description: "Helping people stay in touch with others.",
-            examples: "Example: Social media apps, video calling platforms."
+            title: 'Social Isolation',
+            description: 'People lack meaningful social connection or participation, for example because of distance, exclusion, loneliness, or changing social environments.'
         },
         {
-            title: "Control Over Public Spaces",
-            description: "Managing access and behavior in public areas.",
-            examples: "Example: Smart parks, automated gates."
+            title: 'Conflicts in Public Space',
+            description: 'People have competing needs or behaviors in shared spaces, for example around noise, mobility, crowds, access, or public order.'
         },
         {
-            title: "Automated Justice",
-            description: "Enforcing rules and laws using technology.",
-            examples: "Example: AI-powered surveillance that identifies violations."
+            title: 'Unfair Decision-Making',
+            description: 'Decisions can be inconsistent, biased, or difficult to challenge, for example in hiring, education, insurance, policing, or access to services.'
         },
         {
-            title: "Mental Health and Well-being",
-            description: "Helping people manage stress, anxiety, or mood.",
-            examples: "Example: Meditation apps, AI-powered therapy."
+            title: 'Mental Health',
+            description: 'People struggle with stress, anxiety, mood, or emotional well-being, for example because support is unavailable, expensive, or difficult to access.'
         },
         {
-            title: "Fraud Detection",
-            description: "Identifying and preventing fraudulent activities.",
-            examples: "Example: Banking apps, e-commerce security."
+            title: 'Fraud and Deception',
+            description: 'People or organizations struggle to detect misleading, dishonest, or fraudulent behavior, for example in finance, commerce, identity, or online communication.'
         },
         {
-            title: "Personalization",
-            description: "Tailoring content, services, or experiences to individual users.",
-            examples: "Example: Recommendation engines, custom learning paths."
-        }
+            title: 'Information Overload',
+            description: 'People receive more information than they can easily understand or act on, for example through news, notifications, dashboards, recommendations, or online content.'
+        },
     ],
-    purpose: [
-        { title: "Optimize", description: "Make a process faster, better, or cheaper." },
-        { title: "Entertain", description: "Provide fun, excitement, or amusement." },
-        { title: "Monitor", description: "Watch or track people, environments, or data." },
-        { title: "Heal", description: "Improve health, reduce pain, or cure illness." },
-        { title: "Connect", description: "Bring people together, enable communication." },
-        { title: "Educate", description: "Teach or provide information." },
-        { title: "Protect", description: "Keep users safe from harm." },
-        { title: "Analyze", description: "Understand or interpret data." },
-        { title: "Automate", description: "Perform tasks without human input." },
-        { title: "Inspire", description: "Encourage creativity or new ideas." }
+    strategy: [
+        {
+            title: 'Optimize',
+            description: 'Make a process, system, or behavior faster, more efficient, or more effective.'
+        },
+        {
+            title: 'Monitor',
+            description: 'Continuously observe or track people, environments, behaviors, or data.'
+        },
+        {
+            title: 'Entertain',
+            description: 'Create engaging, enjoyable, or attention-grabbing experiences.'
+        },
+        {
+            title: 'Support',
+            description: 'Help people complete tasks, cope with challenges, or meet their needs.'
+        },
+        {
+            title: 'Connect',
+            description: 'Bring people, communities, information, devices, or systems together.'
+        },
+        {
+            title: 'Educate',
+            description: 'Help people learn, understand, or develop new knowledge and skills.'
+        },
+        {
+            title: 'Protect',
+            description: 'Reduce risks, prevent harm, or keep people, information, or environments safe.'
+        },
+        {
+            title: 'Analyze',
+            description: 'Interpret information or data to identify patterns, relationships, or insights.'
+        },
+        {
+            title: 'Automate',
+            description: 'Perform tasks or make processes run with reduced human involvement.'
+        },
+        {
+            title: 'Influence',
+            description: 'Shape people’s choices, attitudes, or behavior.'
+        },
     ],
-    advanced: [
+    twist: [
         {
-            title: "Synthetic Biology",
-            description: "Engineering of living organisms for specific purposes.",
-            examples: "Examples: Genetically modified crops, lab-grown meat."
+            title: 'No Opt-Out',
+            description: 'People cannot choose whether to participate in or be affected by the system.'
         },
         {
-            title: "Agentic AI",
-            subtitle: "(AI with autonomous decision-making)",
-            description: "AI that can make its own decisions without human input.",
-            examples: "Examples: Self-driving cars, autonomous trading algorithms."
+            title: 'Black Box',
+            description: 'People affected by the system cannot understand how it works or how its decisions are made.'
         },
         {
-            title: "Digital Twins",
-            description: "Digital replicas of real-world objects or systems.",
-            examples: "Examples: A digital version of a factory, a simulated city."
-        }
+            title: 'Limited Access',
+            description: 'Only people who meet certain conditions or criteria can use or benefit from the system.'
+        },
+        {
+            title: 'Free to Use',
+            description: 'Users cannot be charged directly for access to the product or service.'
+        },
+        {
+            title: 'Scoring',
+            description: 'People are assigned a score, ranking, or profile based on their behaviour or data.'
+        },
+        {
+            title: 'Crisis',
+            description: 'The system is introduced during an urgent social, economic, environmental, or political crisis.'
+        },
+        {
+            title: 'Monopoly',
+            description: 'One organisation gains exclusive control over the system, service, or infrastructure.'
+        },
+        {
+            title: 'Dependency',
+            description: 'The system becomes necessary for accessing an important service, opportunity, or part of everyday life.'
+        },
+        {
+            title: 'Function Creep',
+            description: 'The system is gradually used for purposes beyond what it was originally designed for.'
+        },
+        {
+            title: 'Rule Change',
+            description: 'The rules of the system change after people have already adopted or become dependent on it.'
+        },
     ]
 };
 
+
 // Game State
+const CORE_CATEGORIES = ['technology', 'target', 'funding', 'problem', 'strategy'];
+const CATEGORY_LABELS = {
+    technology: 'Technology',
+    target: 'Target Group',
+    funding: 'Funding Model',
+    problem: 'Problem',
+    strategy: 'Strategy',
+    twist: 'Twist'
+};
+
 let drawnCards = {
     technology: null,
     target: null,
-    revenue: null,
+    funding: null,
     problem: null,
-    purpose: null
+    strategy: null,
+    twist: null
 };
 
 let individualMode = false;
-let advancedTechMode = false;
 let currentStep = 1;
 let conceptText = '';
 
@@ -268,9 +283,8 @@ let conceptText = '';
 const drawAllBtn = document.getElementById('drawAllCards');
 const resetBtn = document.getElementById('resetCards');
 const drawIndividualBtn = document.getElementById('drawIndividual');
-const toggleAdvancedInput = document.getElementById('toggleAdvanced');
+const drawTwistBtn = document.getElementById('drawTwist');
 const cardsContainer = document.getElementById('cardsContainer');
-const technologyHeader = document.getElementById('technologyHeader');
 const conceptTextArea = document.getElementById('conceptText');
 
 // Step Navigation Elements
@@ -288,7 +302,9 @@ const startOverBtn = document.getElementById('startOver');
 drawAllBtn.addEventListener('click', drawAllCards);
 resetBtn.addEventListener('click', resetCards);
 drawIndividualBtn.addEventListener('click', toggleIndividualMode);
-toggleAdvancedInput.addEventListener('change', toggleAdvancedTech);
+if (drawTwistBtn) {
+    drawTwistBtn.addEventListener('click', () => drawSingleCard('twist', { force: true }));
+}
 
 // Step Navigation Event Listeners
 nextToStep2Btn.addEventListener('click', () => goToStep(2));
@@ -324,12 +340,6 @@ document.querySelectorAll('.card-slot').forEach(slot => {
 
 // Helper Functions
 function getRandomCard(category) {
-    // Use advanced technology cards if in advanced mode and category is technology
-    if (category === 'technology' && advancedTechMode) {
-        const cards = cardData.advanced;
-        return cards[Math.floor(Math.random() * cards.length)];
-    }
-    
     const cards = cardData[category];
     return cards[Math.floor(Math.random() * cards.length)];
 }
@@ -364,9 +374,9 @@ function renderCard(category, card) {
     checkCanProceed();
 }
 
-function drawSingleCard(category) {
-    // In individual mode, allow redrawing. In normal mode, prevent redrawing
-    if (drawnCards[category] && !individualMode) return; 
+function drawSingleCard(category, { force = false } = {}) {
+    // In individual mode (or forced, e.g. Twist / Swap), allow redrawing
+    if (drawnCards[category] && !individualMode && !force) return;
     
     const card = getRandomCard(category);
     drawnCards[category] = card;
@@ -374,9 +384,7 @@ function drawSingleCard(category) {
 }
 
 function drawAllCards() {
-    const categories = ['technology', 'target', 'revenue', 'problem', 'purpose'];
-    
-    categories.forEach((category, index) => {
+    CORE_CATEGORIES.forEach((category, index) => {
         setTimeout(() => {
             if (!drawnCards[category]) {
                 drawSingleCard(category);
@@ -391,60 +399,30 @@ function drawAllCards() {
 }
 
 function resetCards() {
-    // Reset game state
     drawnCards = {
         technology: null,
         target: null,
-        revenue: null,
+        funding: null,
         problem: null,
-        purpose: null
+        strategy: null,
+        twist: null
     };
     
-    // Reset UI
     document.querySelectorAll('.card-content').forEach(content => {
         const category = content.id.replace('Card', '');
-        
-        content.innerHTML = `<div class="draw-prompt">Click "Draw Cards" or "Swap Card" to reveal a ${category.charAt(0).toUpperCase() + category.slice(1)} card</div>`;
+        const label = CATEGORY_LABELS[category] || category;
+        content.innerHTML = `<div class="draw-prompt">Click "Draw Cards" or "Swap Card" to reveal a ${label} card</div>`;
     });
     
     document.querySelectorAll('.card-slot').forEach(slot => {
         slot.classList.remove('filled');
     });
     
-    // Reset individual mode
     if (individualMode) {
         toggleIndividualMode();
     }
     
-    // Check if we can proceed (should disable next button)
     checkCanProceed();
-}
-
-function toggleAdvancedTech() {
-    // Read state from checkbox
-    advancedTechMode = toggleAdvancedInput.checked;
-    
-    // Get the technology header container
-    const technologyHeaderContainer = technologyHeader.parentElement;
-    
-    // Update header text and styling
-    if (advancedTechMode) {
-        technologyHeader.textContent = 'Advanced Technology';
-        technologyHeaderContainer.classList.add('advanced-tech');
-    } else {
-        technologyHeader.textContent = 'Technology';
-        technologyHeaderContainer.classList.remove('advanced-tech');
-    }
-    
-    // Clear the technology card if one is drawn, so user can draw from new deck
-    if (drawnCards.technology) {
-        drawnCards.technology = null;
-        const technologyCard = document.getElementById('technologyCard');
-        const technologySlot = document.querySelector('[data-category="technology"]');
-        
-        technologyCard.innerHTML = `<div class="draw-prompt">Click "Draw Cards" or "Swap Card" to reveal a ${advancedTechMode ? 'Advanced Technology' : 'Technology'} card</div>`;
-        technologySlot.classList.remove('filled');
-    }
 }
 
 function toggleIndividualMode() {
@@ -541,14 +519,14 @@ function updateCardSummaries(step) {
     if (!summaryContainer) return;
     
     let html = '';
-    const categories = ['technology', 'target', 'revenue', 'problem', 'purpose'];
+    const categories = [...CORE_CATEGORIES, 'twist'];
     
     categories.forEach(category => {
         const card = drawnCards[category];
         if (card) {
             html += `
                 <div class="summary-card">
-                    <h4>${category.charAt(0).toUpperCase() + category.slice(1)}</h4>
+                    <h4>${CATEGORY_LABELS[category]}</h4>
                     <div class="card-title">${card.title}</div>
                     <div class="card-description">${card.description}</div>
                 </div>
@@ -565,19 +543,12 @@ function updateConceptSummaries(step) {
     
     // Build topics line
     let topicsHtml = '';
-    const categories = ['technology', 'target', 'revenue', 'problem', 'purpose'];
-    const topicLabels = {
-        technology: 'Technology',
-        target: 'Target Group', 
-        revenue: 'Revenue Model',
-        problem: 'Problem',
-        purpose: 'Purpose'
-    };
+    const categories = [...CORE_CATEGORIES, 'twist'];
     
     categories.forEach(category => {
         const card = drawnCards[category];
         if (card) {
-            topicsHtml += `<span class="topic-tag">${topicLabels[category]}: ${card.title}</span>`;
+            topicsHtml += `<span class="topic-tag">${CATEGORY_LABELS[category]}: ${card.title}</span>`;
         }
     });
     
@@ -604,7 +575,7 @@ function updateConceptSummaries(step) {
 }
 
 function checkCanProceed() {
-    const hasCards = Object.values(drawnCards).some(card => card !== null);
+    const hasCards = CORE_CATEGORIES.some(category => drawnCards[category] !== null);
     nextToStep2Btn.disabled = !hasCards;
     
     if (hasCards) {
@@ -626,12 +597,6 @@ function startNewGame() {
     
     // Go back to step 1
     goToStep(1);
-    
-    // Reset advanced mode if active
-    if (advancedTechMode) {
-        toggleAdvancedInput.checked = false;
-        toggleAdvancedTech();
-    }
     
     // Reset individual mode if active
     if (individualMode) {
