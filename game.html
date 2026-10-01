@@ -5,55 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Speculation Game</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="favicon.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container game-container">
-        <header class="header-compact">
-            <div class="header-left">
-                <a href="index.html" class="brand-prompt">$ speculationgame ~</a>
-            </div>
+    <div class="container">
+        <header class="site-bar">
+            <a href="index.html" class="brand-name">The Speculation Game</a>
             <nav class="top-nav">
-                <a href="index.html" class="nav-item">home</a>
-                <a href="game.html" class="nav-item active">game</a>
-                <a href="examples.html" class="nav-item">examples</a>
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="game.html" class="nav-item active">Play</a>
+                <a href="examples.html" class="nav-item">Examples</a>
             </nav>
         </header>
 
         <main class="main game-main">
             <nav class="step-progress" aria-label="Game steps">
-                <button type="button" class="step-indicator active" data-step="1"><span class="step-num">01</span><span class="step-label">Draw</span></button>
-                <button type="button" class="step-indicator" data-step="2" disabled><span class="step-num">02</span><span class="step-label">Design</span></button>
-                <button type="button" class="step-indicator" data-step="3" disabled><span class="step-num">03</span><span class="step-label">Build</span></button>
-                <button type="button" class="step-indicator" data-step="4" disabled><span class="step-num">04</span><span class="step-label">Pitch</span></button>
-                <button type="button" class="step-indicator" data-step="5" disabled><span class="step-num">05</span><span class="step-label">Reflect</span></button>
+                <button type="button" class="step-indicator active" data-step="1"><span class="step-label">Draw</span></button>
+                <button type="button" class="step-indicator" data-step="2" disabled><span class="step-label">Design</span></button>
+                <button type="button" class="step-indicator" data-step="3" disabled><span class="step-label">Build</span></button>
+                <button type="button" class="step-indicator" data-step="4" disabled><span class="step-label">Pitch</span></button>
+                <button type="button" class="step-indicator" data-step="5" disabled><span class="step-label">Reflect</span></button>
             </nav>
 
-            <!-- Persistent hand shown from Design onward -->
             <aside class="drawn-hand" id="drawnHand" hidden>
                 <div class="drawn-hand-header">
-                    <p class="home-kicker">.hand</p>
-                    <button type="button" class="text-link" id="editCardsBtn">Edit cards</button>
+                    <p class="hand-heading">Your cards</p>
+                    <button type="button" class="text-link" id="editCardsBtn">Change cards</button>
                 </div>
                 <div class="drawn-hand-grid" id="drawnHandGrid"></div>
             </aside>
 
             <section class="game-flow">
-                <!-- Step 1: Draw -->
                 <div class="step-content active" id="step1">
-                    <div class="step-header step-header-left">
-                        <h3>Draw your cards</h3>
-                        <p>One from each category. Impossible? Swap. Too easy? Add a Twist.</p>
-                    </div>
-
-                    <div class="step-controls wizard-controls">
-                        <button id="drawAllCards" class="btn-primary" type="button">Draw Cards</button>
-                        <div class="secondary-actions">
-                            <button id="drawIndividual" class="btn-secondary" type="button" title="Click a card to redraw it">Swap</button>
-                            <button id="drawTwist" class="btn-secondary" type="button">Twist</button>
-                            <button id="resetCards" class="btn-secondary" type="button">Reset</button>
+                    <div class="step-hero">
+                        <h1>Draw your cards</h1>
+                        <p>
+                            Get one card from each category.<br>
+                            If it’s impossible, swap one.<br>
+                            If it’s too easy, draw a Twist.
+                        </p>
+                        <div class="step-controls wizard-controls">
+                            <div class="primary-actions">
+                                <button id="drawAllCards" class="btn-primary" type="button">Draw cards</button>
+                                <button id="nextToStep2" class="btn-primary" type="button" disabled hidden title="Draw all five cards to continue">Continue</button>
+                            </div>
+                            <div class="secondary-actions">
+                                <button id="drawIndividual" class="btn-ghost" type="button" title="Click a card to redraw it">Swap one</button>
+                                <button id="drawTwist" class="btn-ghost" type="button">Draw twist</button>
+                                <button id="resetCards" class="btn-ghost" type="button">Reset</button>
+                            </div>
+                            <p class="controls-hint" id="controlsHint">Draw all five cards to continue.</p>
                         </div>
-                        <p class="controls-hint" id="controlsHint">Draw all five core cards to continue.</p>
                     </div>
 
                     <div class="cards-container" id="cardsContainer">
@@ -148,90 +152,83 @@
                         </div>
                     </div>
 
-                    <div class="step-navigation">
-                        <div></div>
-                        <button id="nextToStep2" class="btn-next" type="button" disabled title="Draw all five core cards to continue">Continue to Design →</button>
-                    </div>
                 </div>
 
-                <!-- Step 2: Design -->
                 <div class="step-content" id="step2">
-                    <div class="step-header step-header-left">
-                        <h3>Design your system</h3>
-                        <p>Use the hand above. Strange or uncomfortable combinations are useful.</p>
+                    <div class="step-hero">
+                        <h1>Design your system</h1>
+                        <p>
+                            Combine the cards into one speculative idea.<br>
+                            Weird is welcome.
+                        </p>
                     </div>
 
                     <div class="concept-input-area">
-                        <label class="field-label" for="conceptText">Your concept</label>
-                        <textarea id="conceptText" placeholder="What does it do? Who uses it? What makes it useful — or concerning?"></textarea>
-                        <p class="input-hint">Tie each card into the system. Name benefits and possible harms.</p>
+                        <label class="field-label" for="conceptText">Describe your concept</label>
+                        <textarea id="conceptText" placeholder="What is it? Who uses it? What could go wrong?"></textarea>
                     </div>
 
                     <div class="step-navigation">
-                        <button id="backToStep1" class="btn-back" type="button">← Draw</button>
-                        <button id="nextToStep3" class="btn-next" type="button">Continue to Build →</button>
+                        <button id="backToStep1" class="btn-ghost" type="button">Back</button>
+                        <button id="nextToStep3" class="btn-primary" type="button">Continue</button>
                     </div>
                 </div>
 
-                <!-- Step 3: Build -->
                 <div class="step-content" id="step3">
-                    <div class="step-header step-header-left">
-                        <h3>Build a prototype</h3>
-                        <p>Sketch, storyboard, paper mock-up, or short narrative — just enough to discuss.</p>
+                    <div class="step-hero">
+                        <h1>Build a quick prototype</h1>
+                        <p>
+                            Make something physical with materials at hand.<br>
+                            Use paper, post-its, cardboard, markers, or whatever you have.<br>
+                            Keep it rough, then come back to pitch.
+                        </p>
                     </div>
-
                     <div class="workshop-panel">
-                        <p class="workshop-lead">Work offline or on paper. When you’re ready, continue to pitch.</p>
                         <div class="concept-note" id="conceptNote3"></div>
                     </div>
-
                     <div class="step-navigation">
-                        <button id="backToStep2" class="btn-back" type="button">← Design</button>
-                        <button id="nextToStep4" class="btn-next" type="button">Continue to Pitch →</button>
+                        <button id="backToStep2" class="btn-ghost" type="button">Back</button>
+                        <button id="nextToStep4" class="btn-primary" type="button">Continue</button>
                     </div>
                 </div>
 
-                <!-- Step 4: Pitch -->
                 <div class="step-content" id="step4">
-                    <div class="step-header step-header-left">
-                        <h3>Pitch</h3>
-                        <p>Explain how it works. Who benefits? Who is harmed? Why would it be used?</p>
+                    <div class="step-hero">
+                        <h1>Pitch it</h1>
+                        <p>
+                            Tell the group how it works.<br>
+                            Who benefits, and who might be harmed?
+                        </p>
                     </div>
-
                     <div class="workshop-panel">
                         <div class="concept-note" id="conceptNote4"></div>
                     </div>
-
                     <div class="step-navigation">
-                        <button id="backToStep3" class="btn-back" type="button">← Build</button>
-                        <button id="nextToStep5" class="btn-next" type="button">Continue to Reflect →</button>
+                        <button id="backToStep3" class="btn-ghost" type="button">Back</button>
+                        <button id="nextToStep5" class="btn-primary" type="button">Continue</button>
                     </div>
                 </div>
 
-                <!-- Step 5: Reflect -->
                 <div class="step-content" id="step5">
-                    <div class="step-header step-header-left">
-                        <h3>Reflect</h3>
-                        <p>Discuss benefits, risks, and consequences.</p>
+                    <div class="step-hero">
+                        <h1>Reflect together</h1>
+                        <p>Use these prompts to dig into the consequences.</p>
                     </div>
-
                     <div class="workshop-panel">
                         <div class="concept-note" id="conceptNote5"></div>
                         <div class="question-card">
-                            <h4>Ask</h4>
                             <ul>
                                 <li>What is the hidden impact?</li>
                                 <li>Can it be used for harm as well as good?</li>
                                 <li>What if this became widely adopted?</li>
                                 <li>Who benefits? Who is harmed?</li>
-                                <li>What assumptions does this make about users?</li>
+                                <li>What assumptions does this make about people?</li>
                             </ul>
                         </div>
                     </div>
-
                     <div class="step-navigation">
-                        <button id="backToStep4" class="btn-back" type="button">← Pitch</button>
-                        <button id="startOver" class="btn-next" type="button">New Game</button>
+                        <button id="backToStep4" class="btn-ghost" type="button">Back</button>
+                        <button id="startOver" class="btn-primary" type="button">Play again</button>
                     </div>
                 </div>
             </section>
@@ -242,7 +239,6 @@
             <p class="copyright">Centre of Expertise Creative Innovation · Hogeschool van Amsterdam</p>
         </footer>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>

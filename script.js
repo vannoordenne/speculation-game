@@ -446,14 +446,14 @@ function toggleIndividualMode() {
         if (!document.querySelector('.individual-instruction')) {
             const instruction = document.createElement('div');
             instruction.className = 'individual-instruction';
-            instruction.textContent = 'Swap mode on — click any card to redraw it.';
+            instruction.textContent = 'Click any card to replace it.';
             cardsContainer.parentNode.insertBefore(instruction, cardsContainer);
         }
         const hint = document.getElementById('controlsHint');
-        if (hint) hint.textContent = 'Click a card to replace it. Press Done when finished.';
+        if (hint) hint.textContent = 'Click a card to replace it.';
     } else {
         cardsContainer.classList.remove('individual-mode');
-        drawIndividualBtn.textContent = 'Swap';
+        drawIndividualBtn.textContent = 'Swap one';
         drawIndividualBtn.title = 'Click a card to redraw it';
         drawAllBtn.disabled = false;
 
@@ -515,29 +515,31 @@ function updateHandStrip() {
 
     const categories = [...CORE_CATEGORIES, 'twist'];
     let html = '';
+    let count = 0;
 
     categories.forEach((category) => {
         const card = drawnCards[category];
         if (!card) return;
+        count += 1;
         html += `
-            <article class="hand-card" data-category="${category}">
-                <p class="hand-category">${CATEGORY_LABELS[category]}</p>
-                <h4 class="hand-title">${card.title}</h4>
-                <p class="hand-description">${card.description}</p>
+            <article class="hand-chip" data-category="${category}" title="${card.description.replace(/"/g, '&quot;')}">
+                <span class="hand-chip-cat">${CATEGORY_LABELS[category]}</span>
+                <span class="hand-chip-title">${card.title}</span>
             </article>
         `;
     });
 
     drawnHandGrid.innerHTML = html;
-    if (drawnHand && currentStep >= 2) {
-        drawnHand.hidden = !allCoreCardsDrawn();
+    drawnHandGrid.dataset.count = String(count);
+    if (drawnHand) {
+        drawnHand.hidden = currentStep < 2 || !allCoreCardsDrawn();
     }
 }
 
 function updateConceptNotes() {
     const text = conceptText
         ? conceptText
-        : 'No concept written yet — go back to Design to add one.';
+        : 'No concept written yet. Go back to Design to add one.';
 
     [3, 4, 5].forEach((step) => {
         const el = document.getElementById(`conceptNote${step}`);
@@ -562,27 +564,34 @@ function updateDrawControls() {
     const complete = allCoreCardsDrawn();
 
     if (complete) {
-        drawAllBtn.textContent = 'Redraw All';
+        drawAllBtn.textContent = 'Draw again';
         drawAllBtn.title = 'Redraw all five core cards';
-        if (hint) hint.textContent = 'All core cards drawn. Continue — or swap / add a Twist.';
+        drawAllBtn.classList.remove('btn-primary');
+        drawAllBtn.classList.add('btn-ghost');
+        nextToStep2Btn.hidden = false;
+        nextToStep2Btn.disabled = false;
+        if (hint) hint.textContent = 'Ready. Continue to design, or tweak your cards.';
     } else {
         const count = CORE_CATEGORIES.filter(c => drawnCards[c]).length;
-        drawAllBtn.textContent = 'Draw Cards';
+        drawAllBtn.textContent = 'Draw cards';
         drawAllBtn.title = 'Draw one card from each core category';
+        drawAllBtn.classList.add('btn-primary');
+        drawAllBtn.classList.remove('btn-ghost');
+        nextToStep2Btn.hidden = true;
+        nextToStep2Btn.disabled = true;
         if (hint) {
             hint.textContent = count
-                ? `${count}/5 core cards drawn. Draw the rest or swap individual cards.`
-                : 'Draw all five core cards to continue.';
+                ? `${count} of 5 cards drawn`
+                : 'Draw all five cards to continue.';
         }
     }
 }
 
 function checkCanProceed() {
     const complete = allCoreCardsDrawn();
-    nextToStep2Btn.disabled = !complete;
     nextToStep2Btn.title = complete
         ? 'Continue to design'
-        : 'Draw all five core cards to continue';
+        : 'Draw all five cards to continue';
     updateDrawControls();
     updateStepLocks();
     updateHandStrip();
