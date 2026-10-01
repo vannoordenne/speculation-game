@@ -8,12 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+    <div class="container game-container">
         <header class="header-compact">
             <div class="header-left">
                 <a href="index.html" class="brand-prompt">$ speculationgame ~</a>
             </div>
-            
             <nav class="top-nav">
                 <a href="index.html" class="nav-item">home</a>
                 <a href="game.html" class="nav-item active">game</a>
@@ -21,14 +20,7 @@
             </nav>
         </header>
 
-        <div class="page-header page-header-left">
-            <p class="home-kicker">.play</p>
-            <h2 class="page-title">Play</h2>
-            <p class="page-subtitle">Draw five cards, design a speculative system, then pitch and reflect.</p>
-        </div>
-
-        <main class="main">
-            <!-- Step Progress Indicator -->
+        <main class="main game-main">
             <nav class="step-progress" aria-label="Game steps">
                 <button type="button" class="step-indicator active" data-step="1"><span class="step-num">01</span><span class="step-label">Draw</span></button>
                 <button type="button" class="step-indicator" data-step="2" disabled><span class="step-num">02</span><span class="step-label">Design</span></button>
@@ -37,20 +29,29 @@
                 <button type="button" class="step-indicator" data-step="5" disabled><span class="step-num">05</span><span class="step-label">Reflect</span></button>
             </nav>
 
+            <!-- Persistent hand shown from Design onward -->
+            <aside class="drawn-hand" id="drawnHand" hidden>
+                <div class="drawn-hand-header">
+                    <p class="home-kicker">.hand</p>
+                    <button type="button" class="text-link" id="editCardsBtn">Edit cards</button>
+                </div>
+                <div class="drawn-hand-grid" id="drawnHandGrid"></div>
+            </aside>
+
             <section class="game-flow">
-                <!-- Step 1: Draw Cards -->
+                <!-- Step 1: Draw -->
                 <div class="step-content active" id="step1">
-                    <div class="step-header">
-                        <h3>01 · Draw</h3>
-                        <p>Get one card from each category. Too easy? Add a Twist. Impossible? Swap one card.</p>
+                    <div class="step-header step-header-left">
+                        <h3>Draw your cards</h3>
+                        <p>One from each category. Impossible? Swap. Too easy? Add a Twist.</p>
                     </div>
-                    
-                    <div class="step-controls">
-                        <div class="action-buttons">
-                            <button id="drawAllCards" class="btn-action" type="button">Draw Cards</button>
-                            <button id="drawIndividual" class="btn-action" type="button" title="Click a card to redraw it">Swap</button>
-                            <button id="drawTwist" class="btn-action btn-twist" type="button">Twist</button>
-                            <button id="resetCards" class="btn-action" type="button">Reset</button>
+
+                    <div class="step-controls wizard-controls">
+                        <button id="drawAllCards" class="btn-primary" type="button">Draw Cards</button>
+                        <div class="secondary-actions">
+                            <button id="drawIndividual" class="btn-secondary" type="button" title="Click a card to redraw it">Swap</button>
+                            <button id="drawTwist" class="btn-secondary" type="button">Twist</button>
+                            <button id="resetCards" class="btn-secondary" type="button">Reset</button>
                         </div>
                         <p class="controls-hint" id="controlsHint">Draw all five core cards to continue.</p>
                     </div>
@@ -59,28 +60,14 @@
                         <div class="card-slot" data-category="technology">
                             <div class="card-inner">
                                 <div class="card-back">
-                                    <div class="card-topline">
-                                        <span class="card-category">.technology</span>
-                                    </div>
-                                    <div class="card-back-center">
-                                        <div class="card-back-title">THE SPECULATION GAME</div>
-                                    </div>
-                                    <div class="card-bottomline">
-                                        <span class="card-edition"><span class="card-dot"></span>CORE</span>
-                                    </div>
+                                    <div class="card-topline"><span class="card-category">.technology</span></div>
+                                    <div class="card-back-center"><div class="card-back-title">THE SPECULATION GAME</div></div>
+                                    <div class="card-bottomline"><span class="card-edition"><span class="card-dot"></span>CORE</span></div>
                                 </div>
                                 <div class="card-front">
-                                    <div class="card-topline">
-                                        <span class="card-category">.technology</span>
-                                        <span class="card-index"></span>
-                                    </div>
-                                    <div class="card-body" id="technologyCard">
-                                        <div class="draw-prompt">Waiting to be drawn…</div>
-                                    </div>
-                                    <div class="card-bottomline">
-                                        <span class="card-edition"><span class="card-dot"></span>CORE</span>
-                                        <span class="card-brand">THE SPECULATION GAME</span>
-                                    </div>
+                                    <div class="card-topline"><span class="card-category">.technology</span><span class="card-index"></span></div>
+                                    <div class="card-body" id="technologyCard"><div class="draw-prompt">Waiting…</div></div>
+                                    <div class="card-bottomline"><span class="card-edition"><span class="card-dot"></span>CORE</span><span class="card-brand">THE SPECULATION GAME</span></div>
                                 </div>
                             </div>
                         </div>
@@ -88,28 +75,14 @@
                         <div class="card-slot" data-category="target">
                             <div class="card-inner">
                                 <div class="card-back">
-                                    <div class="card-topline">
-                                        <span class="card-category">.target-group</span>
-                                    </div>
-                                    <div class="card-back-center">
-                                        <div class="card-back-title">THE SPECULATION GAME</div>
-                                    </div>
-                                    <div class="card-bottomline">
-                                        <span class="card-edition"><span class="card-dot"></span>CORE</span>
-                                    </div>
+                                    <div class="card-topline"><span class="card-category">.target-group</span></div>
+                                    <div class="card-back-center"><div class="card-back-title">THE SPECULATION GAME</div></div>
+                                    <div class="card-bottomline"><span class="card-edition"><span class="card-dot"></span>CORE</span></div>
                                 </div>
                                 <div class="card-front">
-                                    <div class="card-topline">
-                                        <span class="card-category">.target-group</span>
-                                        <span class="card-index"></span>
-                                    </div>
-                                    <div class="card-body" id="targetCard">
-                                        <div class="draw-prompt">Waiting to be drawn…</div>
-                                    </div>
-                                    <div class="card-bottomline">
-                                        <span class="card-edition"><span class="card-dot"></span>CORE</span>
-                                        <span class="card-brand">THE SPECULATION GAME</span>
-                                    </div>
+                                    <div class="card-topline"><span class="card-category">.target-group</span><span class="card-index"></span></div>
+                                    <div class="card-body" id="targetCard"><div class="draw-prompt">Waiting…</div></div>
+                                    <div class="card-bottomline"><span class="card-edition"><span class="card-dot"></span>CORE</span><span class="card-brand">THE SPECULATION GAME</span></div>
                                 </div>
                             </div>
                         </div>
@@ -117,28 +90,14 @@
                         <div class="card-slot" data-category="funding">
                             <div class="card-inner">
                                 <div class="card-back">
-                                    <div class="card-topline">
-                                        <span class="card-category">.funding-model</span>
-                                    </div>
-                                    <div class="card-back-center">
-                                        <div class="card-back-title">THE SPECULATION GAME</div>
-                                    </div>
-                                    <div class="card-bottomline">
-                                        <span class="card-edition"><span class="card-dot"></span>CORE</span>
-                                    </div>
+                                    <div class="card-topline"><span class="card-category">.funding-model</span></div>
+                                    <div class="card-back-center"><div class="card-back-title">THE SPECULATION GAME</div></div>
+                                    <div class="card-bottomline"><span class="card-edition"><span class="card-dot"></span>CORE</span></div>
                                 </div>
                                 <div class="card-front">
-                                    <div class="card-topline">
-                                        <span class="card-category">.funding-model</span>
-                                        <span class="card-index"></span>
-                                    </div>
-                                    <div class="card-body" id="fundingCard">
-                                        <div class="draw-prompt">Waiting to be drawn…</div>
-                                    </div>
-                                    <div class="card-bottomline">
-                                        <span class="card-edition"><span class="card-dot"></span>CORE</span>
-                                        <span class="card-brand">THE SPECULATION GAME</span>
-                                    </div>
+                                    <div class="card-topline"><span class="card-category">.funding-model</span><span class="card-index"></span></div>
+                                    <div class="card-body" id="fundingCard"><div class="draw-prompt">Waiting…</div></div>
+                                    <div class="card-bottomline"><span class="card-edition"><span class="card-dot"></span>CORE</span><span class="card-brand">THE SPECULATION GAME</span></div>
                                 </div>
                             </div>
                         </div>
@@ -146,28 +105,14 @@
                         <div class="card-slot" data-category="problem">
                             <div class="card-inner">
                                 <div class="card-back">
-                                    <div class="card-topline">
-                                        <span class="card-category">.problem</span>
-                                    </div>
-                                    <div class="card-back-center">
-                                        <div class="card-back-title">THE SPECULATION GAME</div>
-                                    </div>
-                                    <div class="card-bottomline">
-                                        <span class="card-edition"><span class="card-dot"></span>CORE</span>
-                                    </div>
+                                    <div class="card-topline"><span class="card-category">.problem</span></div>
+                                    <div class="card-back-center"><div class="card-back-title">THE SPECULATION GAME</div></div>
+                                    <div class="card-bottomline"><span class="card-edition"><span class="card-dot"></span>CORE</span></div>
                                 </div>
                                 <div class="card-front">
-                                    <div class="card-topline">
-                                        <span class="card-category">.problem</span>
-                                        <span class="card-index"></span>
-                                    </div>
-                                    <div class="card-body" id="problemCard">
-                                        <div class="draw-prompt">Waiting to be drawn…</div>
-                                    </div>
-                                    <div class="card-bottomline">
-                                        <span class="card-edition"><span class="card-dot"></span>CORE</span>
-                                        <span class="card-brand">THE SPECULATION GAME</span>
-                                    </div>
+                                    <div class="card-topline"><span class="card-category">.problem</span><span class="card-index"></span></div>
+                                    <div class="card-body" id="problemCard"><div class="draw-prompt">Waiting…</div></div>
+                                    <div class="card-bottomline"><span class="card-edition"><span class="card-dot"></span>CORE</span><span class="card-brand">THE SPECULATION GAME</span></div>
                                 </div>
                             </div>
                         </div>
@@ -175,28 +120,14 @@
                         <div class="card-slot" data-category="strategy">
                             <div class="card-inner">
                                 <div class="card-back">
-                                    <div class="card-topline">
-                                        <span class="card-category">.strategy</span>
-                                    </div>
-                                    <div class="card-back-center">
-                                        <div class="card-back-title">THE SPECULATION GAME</div>
-                                    </div>
-                                    <div class="card-bottomline">
-                                        <span class="card-edition"><span class="card-dot"></span>CORE</span>
-                                    </div>
+                                    <div class="card-topline"><span class="card-category">.strategy</span></div>
+                                    <div class="card-back-center"><div class="card-back-title">THE SPECULATION GAME</div></div>
+                                    <div class="card-bottomline"><span class="card-edition"><span class="card-dot"></span>CORE</span></div>
                                 </div>
                                 <div class="card-front">
-                                    <div class="card-topline">
-                                        <span class="card-category">.strategy</span>
-                                        <span class="card-index"></span>
-                                    </div>
-                                    <div class="card-body" id="strategyCard">
-                                        <div class="draw-prompt">Waiting to be drawn…</div>
-                                    </div>
-                                    <div class="card-bottomline">
-                                        <span class="card-edition"><span class="card-dot"></span>CORE</span>
-                                        <span class="card-brand">THE SPECULATION GAME</span>
-                                    </div>
+                                    <div class="card-topline"><span class="card-category">.strategy</span><span class="card-index"></span></div>
+                                    <div class="card-body" id="strategyCard"><div class="draw-prompt">Waiting…</div></div>
+                                    <div class="card-bottomline"><span class="card-edition"><span class="card-dot"></span>CORE</span><span class="card-brand">THE SPECULATION GAME</span></div>
                                 </div>
                             </div>
                         </div>
@@ -204,28 +135,14 @@
                         <div class="card-slot card-slot-twist" data-category="twist">
                             <div class="card-inner">
                                 <div class="card-back">
-                                    <div class="card-topline">
-                                        <span class="card-category">.twist</span>
-                                    </div>
-                                    <div class="card-back-center">
-                                        <div class="card-back-title">THE SPECULATION GAME</div>
-                                    </div>
-                                    <div class="card-bottomline">
-                                        <span class="card-edition"><span class="card-dot"></span>CORE</span>
-                                    </div>
+                                    <div class="card-topline"><span class="card-category">.twist</span></div>
+                                    <div class="card-back-center"><div class="card-back-title">THE SPECULATION GAME</div></div>
+                                    <div class="card-bottomline"><span class="card-edition"><span class="card-dot"></span>CORE</span></div>
                                 </div>
                                 <div class="card-front">
-                                    <div class="card-topline">
-                                        <span class="card-category">.twist</span>
-                                        <span class="card-index"></span>
-                                    </div>
-                                    <div class="card-body" id="twistCard">
-                                        <div class="draw-prompt">Optional twist — only if it feels too easy</div>
-                                    </div>
-                                    <div class="card-bottomline">
-                                        <span class="card-edition"><span class="card-dot"></span>CORE</span>
-                                        <span class="card-brand">THE SPECULATION GAME</span>
-                                    </div>
+                                    <div class="card-topline"><span class="card-category">.twist</span><span class="card-index"></span></div>
+                                    <div class="card-body" id="twistCard"><div class="draw-prompt">Optional</div></div>
+                                    <div class="card-bottomline"><span class="card-edition"><span class="card-dot"></span>CORE</span><span class="card-brand">THE SPECULATION GAME</span></div>
                                 </div>
                             </div>
                         </div>
@@ -233,87 +150,81 @@
 
                     <div class="step-navigation">
                         <div></div>
-                        <button id="nextToStep2" class="btn-next" type="button" disabled title="Draw all five core cards to continue">Next: Design →</button>
+                        <button id="nextToStep2" class="btn-next" type="button" disabled title="Draw all five core cards to continue">Continue to Design →</button>
                     </div>
                 </div>
 
-                <!-- Step 2: Design Your System -->
+                <!-- Step 2: Design -->
                 <div class="step-content" id="step2">
-                    <div class="step-header">
-                        <h3>02 · Design</h3>
-                        <p>Invent a speculative system from your cards. Strange or uncomfortable combinations are useful.</p>
-                    </div>
-
-                    <div class="concept-summary" id="conceptSummary2">
-                        <!-- Concept summary will be displayed here -->
+                    <div class="step-header step-header-left">
+                        <h3>Design your system</h3>
+                        <p>Use the hand above. Strange or uncomfortable combinations are useful.</p>
                     </div>
 
                     <div class="concept-input-area">
-                        <h4>Your concept</h4>
+                        <label class="field-label" for="conceptText">Your concept</label>
                         <textarea id="conceptText" placeholder="What does it do? Who uses it? What makes it useful — or concerning?"></textarea>
                         <p class="input-hint">Tie each card into the system. Name benefits and possible harms.</p>
                     </div>
 
                     <div class="step-navigation">
-                        <button id="backToStep1" class="btn-back" type="button">← Cards</button>
-                        <button id="nextToStep3" class="btn-next" type="button">Next: Build →</button>
+                        <button id="backToStep1" class="btn-back" type="button">← Draw</button>
+                        <button id="nextToStep3" class="btn-next" type="button">Continue to Build →</button>
                     </div>
                 </div>
 
-                <!-- Step 3: Develop Your Prototype -->
+                <!-- Step 3: Build -->
                 <div class="step-content" id="step3">
-                    <div class="step-header">
-                        <h3>03 · Build</h3>
-                        <p>Make a quick prototype: sketch, storyboard, paper mock-up, or short narrative.</p>
+                    <div class="step-header step-header-left">
+                        <h3>Build a prototype</h3>
+                        <p>Sketch, storyboard, paper mock-up, or short narrative — just enough to discuss.</p>
                     </div>
 
-                    <div class="concept-summary" id="conceptSummary3">
-                        <!-- Concept summary will be displayed here -->
+                    <div class="workshop-panel">
+                        <p class="workshop-lead">Work offline or on paper. When you’re ready, continue to pitch.</p>
+                        <div class="concept-note" id="conceptNote3"></div>
                     </div>
 
                     <div class="step-navigation">
                         <button id="backToStep2" class="btn-back" type="button">← Design</button>
-                        <button id="nextToStep4" class="btn-next" type="button">Next: Pitch →</button>
+                        <button id="nextToStep4" class="btn-next" type="button">Continue to Pitch →</button>
                     </div>
                 </div>
 
-                <!-- Step 4: Present Your Concept -->
+                <!-- Step 4: Pitch -->
                 <div class="step-content" id="step4">
-                    <div class="step-header">
-                        <h3>04 · Pitch</h3>
+                    <div class="step-header step-header-left">
+                        <h3>Pitch</h3>
                         <p>Explain how it works. Who benefits? Who is harmed? Why would it be used?</p>
                     </div>
 
-                    <div class="concept-summary" id="conceptSummary4">
-                        <!-- Concept summary will be displayed here -->
+                    <div class="workshop-panel">
+                        <div class="concept-note" id="conceptNote4"></div>
                     </div>
 
                     <div class="step-navigation">
                         <button id="backToStep3" class="btn-back" type="button">← Build</button>
-                        <button id="nextToStep5" class="btn-next" type="button">Next: Reflect →</button>
+                        <button id="nextToStep5" class="btn-next" type="button">Continue to Reflect →</button>
                     </div>
                 </div>
 
-                <!-- Step 5: Reflect and Discuss -->
+                <!-- Step 5: Reflect -->
                 <div class="step-content" id="step5">
-                    <div class="step-header">
-                        <h3>05 · Reflect</h3>
+                    <div class="step-header step-header-left">
+                        <h3>Reflect</h3>
                         <p>Discuss benefits, risks, and consequences.</p>
                     </div>
 
-                    <div class="concept-summary" id="conceptSummary5">
-                        <!-- Concept summary will be displayed here -->
-                    </div>
-                    
-                    <div class="questions">
+                    <div class="workshop-panel">
+                        <div class="concept-note" id="conceptNote5"></div>
                         <div class="question-card">
-                            <h4>Critical Questions to Ask:</h4>
+                            <h4>Ask</h4>
                             <ul>
-                                <li>What is the hidden impact of your system?</li>
-                                <li>Can your system be used for harm as well as good?</li>
-                                <li>What would happen if this system became widely adopted?</li>
-                                <li>Who benefits from this system? Who is harmed?</li>
-                                <li>What assumptions does your design make about users?</li>
+                                <li>What is the hidden impact?</li>
+                                <li>Can it be used for harm as well as good?</li>
+                                <li>What if this became widely adopted?</li>
+                                <li>Who benefits? Who is harmed?</li>
+                                <li>What assumptions does this make about users?</li>
                             </ul>
                         </div>
                     </div>
@@ -334,4 +245,4 @@
 
     <script src="script.js"></script>
 </body>
-</html> 
+</html>

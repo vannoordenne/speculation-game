@@ -286,6 +286,9 @@ const drawIndividualBtn = document.getElementById('drawIndividual');
 const drawTwistBtn = document.getElementById('drawTwist');
 const cardsContainer = document.getElementById('cardsContainer');
 const conceptTextArea = document.getElementById('conceptText');
+const drawnHand = document.getElementById('drawnHand');
+const drawnHandGrid = document.getElementById('drawnHandGrid');
+const editCardsBtn = document.getElementById('editCardsBtn');
 
 // Step Navigation Elements
 const nextToStep2Btn = document.getElementById('nextToStep2');
@@ -316,6 +319,9 @@ backToStep3Btn.addEventListener('click', () => goToStep(3));
 nextToStep5Btn.addEventListener('click', () => goToStep(5));
 backToStep4Btn.addEventListener('click', () => goToStep(4));
 startOverBtn.addEventListener('click', startNewGame);
+if (editCardsBtn) {
+    editCardsBtn.addEventListener('click', () => goToStep(1));
+}
 
 document.querySelectorAll('.step-indicator').forEach((indicator) => {
     indicator.addEventListener('click', () => {
@@ -330,9 +336,8 @@ document.querySelectorAll('.step-indicator').forEach((indicator) => {
 // Concept text event listener
 conceptTextArea.addEventListener('input', (e) => {
     conceptText = e.target.value;
-    // Update the concept summary if we're currently in step 2
-    if (currentStep === 2) {
-        updateConceptSummaries(2);
+    if (currentStep >= 2) {
+        updateConceptNotes();
     }
 });
 
@@ -368,6 +373,7 @@ function renderCard(category, card) {
     cardElement.innerHTML = html;
     slot.classList.add('filled');
     checkCanProceed();
+    updateHandStrip();
 }
 
 function drawSingleCard(category, { force = false } = {}) {
@@ -412,9 +418,7 @@ function resetCards() {
     document.querySelectorAll('.card-body').forEach(content => {
         const category = content.id.replace('Card', '');
         const label = CATEGORY_LABELS[category] || category;
-        const prompt = category === 'twist'
-            ? 'Optional twist — only if it feels too easy'
-            : 'Waiting to be drawn…';
+        const prompt = category === 'twist' ? 'Optional' : 'Waiting…';
         content.innerHTML = `<div class="draw-prompt">${prompt}</div>`;
     });
     
@@ -427,6 +431,7 @@ function resetCards() {
     }
     
     checkCanProceed();
+    updateHandStrip();
 }
 
 function toggleIndividualMode() {
@@ -460,28 +465,21 @@ function toggleIndividualMode() {
 
 // Step Progression Functions
 function goToStep(step) {
-    // Hide current step
     document.querySelector('.step-content.active').classList.remove('active');
-    
-    // Show target step
     document.getElementById(`step${step}`).classList.add('active');
-    
-    // Update step indicators
     updateStepIndicators(step);
-    
-    // Update current step
     currentStep = step;
-    
-    // Update displays based on step
-    if (step >= 2) {
-        updateConceptSummaries(step);
-        // Load existing concept text if returning to step 2
-        if (step === 2 && conceptTextArea && conceptText) {
-            conceptTextArea.value = conceptText;
-        }
+
+    if (drawnHand) {
+        drawnHand.hidden = step < 2 || !allCoreCardsDrawn();
     }
-    
-    // Scroll to top
+    updateHandStrip();
+    updateConceptNotes();
+
+    if (step === 2 && conceptTextArea) {
+        conceptTextArea.value = conceptText;
+    }
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -512,64 +510,47 @@ function updateStepLocks() {
     });
 }
 
-function updateCardSummaries(step) {
-    const summaryContainer = document.getElementById(`drawnCardsSummary${step === 2 ? '' : step}`);
-    if (!summaryContainer) return;
-    
-    let html = '';
+function updateHandStrip() {
+    if (!drawnHandGrid) return;
+
     const categories = [...CORE_CATEGORIES, 'twist'];
-    
-    categories.forEach(category => {
+    let html = '';
+
+    categories.forEach((category) => {
         const card = drawnCards[category];
-        if (card) {
-            html += `
-                <div class="summary-card">
-                    <h4>${CATEGORY_LABELS[category]}</h4>
-                    <div class="card-title">${card.title}</div>
-                    <div class="card-description">${card.description}</div>
-                </div>
+        if (!card) return;
+        html += `
+            <article class="hand-card" data-category="${category}">
+                <p class="hand-category">${CATEGORY_LABELS[category]}</p>
+                <h4 class="hand-title">${card.title}</h4>
+                <p class="hand-description">${card.description}</p>
+            </article>
+        `;
+    });
+
+    drawnHandGrid.innerHTML = html;
+    if (drawnHand && currentStep >= 2) {
+        drawnHand.hidden = !allCoreCardsDrawn();
+    }
+}
+
+function updateConceptNotes() {
+    const text = conceptText
+        ? conceptText
+        : 'No concept written yet — go back to Design to add one.';
+
+    [3, 4, 5].forEach((step) => {
+        const el = document.getElementById(`conceptNote${step}`);
+        if (!el) return;
+        if (step === 3 && !conceptText) {
+            el.innerHTML = `<p class="concept-text muted">Optional: add a written concept in Design, or prototype directly.</p>`;
+        } else {
+            el.innerHTML = `
+                <p class="note-label">Your concept</p>
+                <p class="concept-text">${conceptText || text}</p>
             `;
         }
     });
-    
-    summaryContainer.innerHTML = html;
-}
-
-function updateConceptSummaries(step) {
-    const summaryContainer = document.getElementById(`conceptSummary${step}`);
-    if (!summaryContainer) return;
-    
-    // Build topics line
-    let topicsHtml = '';
-    const categories = [...CORE_CATEGORIES, 'twist'];
-    
-    categories.forEach(category => {
-        const card = drawnCards[category];
-        if (card) {
-            topicsHtml += `<span class="topic-tag">${CATEGORY_LABELS[category]}: ${card.title}</span>`;
-        }
-    });
-    
-    // Build concept display - different messages for different steps
-    let conceptDisplayText;
-    if (step === 2) {
-        conceptDisplayText = conceptText || 'Describe your concept in the field below.';
-    } else {
-        conceptDisplayText = conceptText || 'No concept written yet — go back to Design to add one.';
-    }
-    
-    summaryContainer.innerHTML = `
-        <div class="concept-topics">
-            <h4>Your Design Elements:</h4>
-            <div class="topics-line">
-                ${topicsHtml}
-            </div>
-        </div>
-        <div class="concept-description">
-            <h4>Your Concept:</h4>
-            <div class="concept-text">${conceptDisplayText}</div>
-        </div>
-    `;
 }
 
 function allCoreCardsDrawn() {
@@ -604,6 +585,7 @@ function checkCanProceed() {
         : 'Draw all five core cards to continue';
     updateDrawControls();
     updateStepLocks();
+    updateHandStrip();
 }
 
 function startNewGame() {
