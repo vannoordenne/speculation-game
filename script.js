@@ -341,39 +341,209 @@ conceptTextArea.addEventListener('input', (e) => {
     }
 });
 
-// Add click listeners to card slots for individual mode
+// Add click listeners to card slots for individual / swap mode
 document.querySelectorAll('.card-slot').forEach(slot => {
     slot.addEventListener('click', (e) => {
-        if (individualMode) {
-            const category = slot.getAttribute('data-category');
-            if (category) {
-                drawSingleCard(category, { force: true });
-            }
+        if (!individualMode) return;
+        if (e.target.closest('.swap-choice, .blank-editor, button, input, textarea, label')) return;
+
+        const category = slot.getAttribute('data-category');
+        if (!category) return;
+
+        // Twist: redraw only (no blank)
+        if (category === 'twist') {
+            clearSwapOverlays();
+            drawSingleCard(category, { force: true });
+            return;
         }
+
+        if (!CORE_CATEGORIES.includes(category)) return;
+        openSwapChoice(category);
     });
 });
 
 // Helper Functions
+function escapeHtml(text) {
+    return String(text ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 function getRandomCard(category) {
     const cards = cardData[category];
     return cards[Math.floor(Math.random() * cards.length)];
 }
 
-function renderCard(category, card) {
+function clearSwapOverlays() {
+    document.querySelectorAll('.card-slot.swap-choosing, .card-slot.blank-editing').forEach((slot) => {
+        slot.classList.remove('swap-choosing', 'blank-editing');
+        const category = slot.getAttribute('data-category');
+        const card = drawnCards[category];
+        const body = document.getElementById(`${category}Card`);
+        if (!body) return;
+
+        if (card) {
+            renderCard(category, card, { skipSideEffects: true });
+        } else {
+            const prompt = category === 'twist' ? 'Optional' : 'Waiting…';
+            body.innerHTML = `<div class="draw-prompt">${prompt}</div>`;
+            slot.classList.remove('filled', 'is-custom');
+        }
+    });
+}
+
+function openSwapChoice(category) {
+    clearSwapOverlays();
+
+    const slot = document.querySelector(`.card-slot[data-category="${category}"]`);
+    const body = document.getElementById(`${category}Card`);
+    if (!slot || !body) return;
+
+    slot.classList.add('swap-choosing', 'filled');
+    body.innerHTML = `
+        <div class="swap-choice">
+            <p class="swap-choice-label">Replace this card</p>
+            <button type="button" class="btn-ghost swap-choice-btn" data-action="redraw">Redraw</button>
+            <button type="button" class="btn-primary swap-choice-btn" data-action="blank">Write your own</button>
+        </div>
+    `;
+
+    body.querySelector('[data-action="redraw"]').addEventListener('click', (e) => {
+        e.stopPropagation();
+        slot.classList.remove('swap-choosing');
+        drawSingleCard(category, { force: true });
+    });
+
+    body.querySelector('[data-action="blank"]').addEventListener('click', (e) => {
+        e.stopPropagation();
+        openBlankEditor(category);
+    });
+}
+
+function openBlankEditor(category) {
+    const slot = document.querySelector(`.card-slot[data-category="${category}"]`);
+    const body = document.getElementById(`${category}Card`);
+    if (!slot || !body) return;
+
+    const existing = drawnCards[category];
+    const titleValue = existing?.custom ? existing.title : '';
+    const descValue = existing?.custom ? (existing.description || '') : '';
+
+    slot.classList.remove('swap-choosing');
+    slot.classList.add('blank-editing', 'filled');
+
+    body.innerHTML = `
+        <form class="blank-editor" autocomplete="off">
+            <label class="blank-label" for="${category}-blank-title">Your ${CATEGORY_LABELS[category].toLowerCase()}</label>
+            <input
+                id="${category}-blank-title"
+                class="blank-title-input"
+                type="text"
+                maxlength="80"
+                required
+                placeholder="Title"
+                value="${escapeHtml(titleValue)}"
+            >
+            <label class="blank-label blank-label-optional" for="${category}-blank-desc">Description (optional)</label>
+            <textarea
+                id="${category}-blank-desc"
+                class="blank-desc-input"
+                maxlength="240"
+                rows="3"
+                placeholder="Short description"
+            >${escapeHtml(descValue)}</textarea>
+            <div class="blank-actions">
+                <button type="button" class="btn-ghost blank-cancel" data-action="cancel">Cancel</button>
+                <button type="submit" class="btn-primary blank-save">Save</button>
+            </div>
+        </form>
+    `;
+
+    const form = body.querySelector('.blank-editor');
+    const titleInput = body.querySelector('.blank-title-input');
+    titleInput.focus();
+    titleInput.select();
+
+    form.addEventListener('click', (e) => e.stopPropagation());
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        saveCustomCard(category);
+    });
+
+    body.querySelector('[data-action="cancel"]').addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        cancelBlankEditor(category);
+    });
+}
+
+function saveCustomCard(category) {
+    const body = document.getElementById(`${category}Card`);
+    const titleInput = body?.querySelector('.blank-title-input');
+    const descInput = body?.querySelector('.blank-desc-input');
+    if (!titleInput) return;
+
+    const title = titleInput.value.trim();
+    if (!title) {
+        titleInput.focus();
+        return;
+    }
+
+    const description = (descInput?.value || '').trim();
+    drawnCards[category] = {
+        title,
+        description,
+        custom: true
+    };
+
+    const slot = document.querySelector(`.card-slot[data-category="${category}"]`);
+    slot?.classList.remove('blank-editing', 'swap-choosing');
+    renderCard(category, drawnCards[category]);
+}
+
+function cancelBlankEditor(category) {
+    const slot = document.querySelector(`.card-slot[data-category="${category}"]`);
+    const body = document.getElementById(`${category}Card`);
+    if (!slot || !body) return;
+
+    slot.classList.remove('blank-editing', 'swap-choosing');
+    const card = drawnCards[category];
+    if (card) {
+        renderCard(category, card);
+    } else {
+        body.innerHTML = `<div class="draw-prompt">Waiting…</div>`;
+        slot.classList.remove('filled', 'is-custom');
+        checkCanProceed();
+    }
+}
+
+function renderCard(category, card, { skipSideEffects = false } = {}) {
     const cardElement = document.getElementById(`${category}Card`);
-    const slot = document.querySelector(`[data-category="${category}"]`);
+    const slot = document.querySelector(`.card-slot[data-category="${category}"]`);
     
-    if (!cardElement) return;
+    if (!cardElement || !slot) return;
     
-    let html = `<div class="card-title">${card.title}</div>`;
+    const customMark = card.custom
+        ? '<div class="card-custom-mark">Custom</div>'
+        : '';
+    let html = `${customMark}<div class="card-title">${escapeHtml(card.title)}</div>`;
     if (card.description) {
-        html += `<div class="card-description">${card.description}</div>`;
+        html += `<div class="card-description">${escapeHtml(card.description)}</div>`;
     }
     
     cardElement.innerHTML = html;
     slot.classList.add('filled');
-    checkCanProceed();
-    updateHandStrip();
+    slot.classList.toggle('is-custom', Boolean(card.custom));
+
+    if (!skipSideEffects) {
+        checkCanProceed();
+        updateHandStrip();
+    }
 }
 
 function drawSingleCard(category, { force = false } = {}) {
@@ -382,10 +552,13 @@ function drawSingleCard(category, { force = false } = {}) {
     
     const card = getRandomCard(category);
     drawnCards[category] = card;
+    const slot = document.querySelector(`.card-slot[data-category="${category}"]`);
+    slot?.classList.remove('swap-choosing', 'blank-editing', 'is-custom');
     renderCard(category, card);
 }
 
 function drawAllCards() {
+    clearSwapOverlays();
     const redraw = allCoreCardsDrawn();
 
     CORE_CATEGORIES.forEach((category, index) => {
@@ -406,6 +579,8 @@ function drawAllCards() {
 }
 
 function resetCards() {
+    clearSwapOverlays();
+
     drawnCards = {
         technology: null,
         target: null,
@@ -417,13 +592,12 @@ function resetCards() {
     
     document.querySelectorAll('.card-body').forEach(content => {
         const category = content.id.replace('Card', '');
-        const label = CATEGORY_LABELS[category] || category;
         const prompt = category === 'twist' ? 'Optional' : 'Waiting…';
         content.innerHTML = `<div class="draw-prompt">${prompt}</div>`;
     });
     
     document.querySelectorAll('.card-slot').forEach(slot => {
-        slot.classList.remove('filled');
+        slot.classList.remove('filled', 'is-custom', 'swap-choosing', 'blank-editing');
     });
     
     if (individualMode) {
@@ -446,15 +620,16 @@ function toggleIndividualMode() {
         if (!document.querySelector('.individual-instruction')) {
             const instruction = document.createElement('div');
             instruction.className = 'individual-instruction';
-            instruction.textContent = 'Click any card to replace it.';
+            instruction.textContent = 'Click a card: redraw, or write your own.';
             cardsContainer.parentNode.insertBefore(instruction, cardsContainer);
         }
         const hint = document.getElementById('controlsHint');
-        if (hint) hint.textContent = 'Click a card to replace it.';
+        if (hint) hint.textContent = 'Click a card to redraw or write your own.';
     } else {
+        clearSwapOverlays();
         cardsContainer.classList.remove('individual-mode');
         drawIndividualBtn.textContent = 'Swap one';
-        drawIndividualBtn.title = 'Click a card to redraw it';
+        drawIndividualBtn.title = 'Redraw a card or write your own';
         drawAllBtn.disabled = false;
 
         const instruction = document.querySelector('.individual-instruction');
@@ -521,10 +696,15 @@ function updateHandStrip() {
         const card = drawnCards[category];
         if (!card) return;
         count += 1;
+        const customClass = card.custom ? ' is-custom' : '';
+        const customMark = card.custom ? '<span class="hand-chip-custom">Custom</span>' : '';
+        const tip = card.description
+            ? escapeHtml(card.description)
+            : escapeHtml(card.title);
         html += `
-            <article class="hand-chip" data-category="${category}" title="${card.description.replace(/"/g, '&quot;')}">
-                <span class="hand-chip-cat">${CATEGORY_LABELS[category]}</span>
-                <span class="hand-chip-title">${card.title}</span>
+            <article class="hand-chip${customClass}" data-category="${category}" title="${tip}">
+                <span class="hand-chip-cat">${CATEGORY_LABELS[category]}${customMark}</span>
+                <span class="hand-chip-title">${escapeHtml(card.title)}</span>
             </article>
         `;
     });
@@ -562,6 +742,13 @@ function allCoreCardsDrawn() {
 function updateDrawControls() {
     const hint = document.getElementById('controlsHint');
     const complete = allCoreCardsDrawn();
+
+    if (individualMode) {
+        if (hint) hint.textContent = 'Click a card to redraw or write your own.';
+        nextToStep2Btn.hidden = !complete;
+        nextToStep2Btn.disabled = !complete;
+        return;
+    }
 
     if (complete) {
         drawAllBtn.textContent = 'Draw again';
