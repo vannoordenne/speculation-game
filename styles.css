@@ -3387,3 +3387,137 @@ a.home-link:hover {
     color: var(--accent) !important;
     border-color: var(--accent) !important;
 }
+
+
+/* Usability + icon-free card backs */
+.card-back-mark { display: none !important; }
+.card-back-center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 8px;
+}
+.card-back-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+}
+
+.step-progress {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+}
+.step-progress .step-indicator {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    color: var(--text-muted);
+    min-width: 88px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    line-height: 1.2;
+}
+.step-progress .step-indicator:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+.step-progress .step-indicator .step-num {
+    font-size: 0.65rem;
+    color: var(--text-dim);
+}
+.step-progress .step-indicator .step-label {
+    font-size: 0.78rem;
+}
+.step-progress .step-indicator.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-dim);
+}
+.step-progress .step-indicator.active .step-num,
+.step-progress .step-indicator.completed .step-num {
+    color: inherit;
+}
+.step-progress .step-indicator.completed {
+    border-color: var(--accent);
+    color: var(--text);
+}
+.step-progress .step-indicator:not(:last-child)::after {
+    display: none;
+}
+
+.individual-instruction {
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 12px 14px;
+    margin: 0 0 18px;
+    text-align: center;
+    font-size: 0.75rem;
+}
+
+.controls-hint {
+    margin-top: 14px !important;
+}
+
+.how-to-play {
+    max-width: 720px;
+    margin: 0 auto 40px;
+}
+.how-list {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0 18px;
+}
+.how-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--text);
+    font-size: 0.86rem;
+}
+.how-list li:last-child { border-bottom: none; }
+.how-list strong {
+    color: var(--text-strong);
+    font-weight: 600;
+    margin-right: 8px;
+}
+.how-note {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    margin: 0 0 8px;
+}
+
+.card-slot.individual-mode,
+.individual-mode .card-slot {
+    outline-offset: 4px;
+}
+.individual-mode .card-slot:hover .card-inner {
+    outline: 1px solid var(--accent);
+}
+
+@media (max-width: 700px) {
+    .step-progress .step-indicator {
+        min-width: 64px;
+        padding: 8px 10px;
+    }
+    .step-progress .step-indicator .step-label {
+        font-size: 0.68rem;
+    }
+    .action-buttons {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        width: 100%;
+    }
+    .btn-action {
+        width: 100%;
+    }
+}

@@ -30,9 +30,8 @@ Based on **CORE v2.0** of the physical card deck.
 ## Workshop Integration
 
 - Built-in instructions and reflection questions
-- Three complete example concepts for inspiration
-- Strategies for handling impossible card combinations
-- Step-by-step workflow guidance
+- Example concepts for inspiration
+- Built-in Draw → Design → Build → Pitch → Reflect flow
 
 ## Usage Instructions
 

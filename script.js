@@ -317,6 +317,16 @@ nextToStep5Btn.addEventListener('click', () => goToStep(5));
 backToStep4Btn.addEventListener('click', () => goToStep(4));
 startOverBtn.addEventListener('click', startNewGame);
 
+document.querySelectorAll('.step-indicator').forEach((indicator) => {
+    indicator.addEventListener('click', () => {
+        if (indicator.disabled) return;
+        const step = Number(indicator.dataset.step);
+        if (!step || step === currentStep) return;
+        if (step >= 2 && !allCoreCardsDrawn()) return;
+        goToStep(step);
+    });
+});
+
 // Concept text event listener
 conceptTextArea.addEventListener('input', (e) => {
     conceptText = e.target.value;
@@ -332,7 +342,7 @@ document.querySelectorAll('.card-slot').forEach(slot => {
         if (individualMode) {
             const category = slot.getAttribute('data-category');
             if (category) {
-                drawSingleCard(category);
+                drawSingleCard(category, { force: true });
             }
         }
     });
@@ -370,18 +380,23 @@ function drawSingleCard(category, { force = false } = {}) {
 }
 
 function drawAllCards() {
+    const redraw = allCoreCardsDrawn();
+
     CORE_CATEGORIES.forEach((category, index) => {
         setTimeout(() => {
-            if (!drawnCards[category]) {
-                drawSingleCard(category);
+            if (redraw || !drawnCards[category]) {
+                drawSingleCard(category, { force: redraw });
             }
-        }, index * 200); // Stagger the animations
+        }, index * 200);
     });
-    
-    // Update UI
+
     if (individualMode) {
         toggleIndividualMode();
     }
+
+    setTimeout(() => {
+        cardsContainer?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, CORE_CATEGORIES.length * 200 + 100);
 }
 
 function resetCards() {
@@ -398,8 +413,8 @@ function resetCards() {
         const category = content.id.replace('Card', '');
         const label = CATEGORY_LABELS[category] || category;
         const prompt = category === 'twist'
-            ? 'Optional — click "Draw Twist" if the combination feels too easy'
-            : `Click "Draw Cards" or "Swap Card" to reveal a ${label} card`;
+            ? 'Optional twist — only if it feels too easy'
+            : 'Waiting to be drawn…';
         content.innerHTML = `<div class="draw-prompt">${prompt}</div>`;
     });
     
@@ -416,47 +431,30 @@ function resetCards() {
 
 function toggleIndividualMode() {
     individualMode = !individualMode;
-    
+
     if (individualMode) {
         cardsContainer.classList.add('individual-mode');
-        drawIndividualBtn.textContent = 'Exit Swap';
-        drawIndividualBtn.title = 'Exit Individual Mode - Return to normal drawing mode';
+        drawIndividualBtn.textContent = 'Done';
+        drawIndividualBtn.title = 'Exit swap mode';
         drawAllBtn.disabled = true;
-        drawAllBtn.style.opacity = '0.5';
-        
-        // Add instruction
+
         if (!document.querySelector('.individual-instruction')) {
             const instruction = document.createElement('div');
             instruction.className = 'individual-instruction';
-            instruction.style.cssText = `
-                background: #222222;
-                padding: 15px;
-                margin-bottom: 20px;
-                border: 1px solid #ffffff;
-                border-left: 3px solid #ffffff;
-                color: #ffffff;
-                font-weight: normal;
-                text-align: center;
-                font-family: 'IBM Plex Mono', monospace;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                font-size: 0.8rem;
-            `;
-            instruction.textContent = 'Swap Mode: Click any card to draw/redraw';
+            instruction.textContent = 'Swap mode on — click any card to redraw it.';
             cardsContainer.parentNode.insertBefore(instruction, cardsContainer);
         }
+        const hint = document.getElementById('controlsHint');
+        if (hint) hint.textContent = 'Click a card to replace it. Press Done when finished.';
     } else {
         cardsContainer.classList.remove('individual-mode');
-        drawIndividualBtn.textContent = 'Swap Card';
-        drawIndividualBtn.title = 'Swap individual cards - Click on each card category below to draw one at a time';
+        drawIndividualBtn.textContent = 'Swap';
+        drawIndividualBtn.title = 'Click a card to redraw it';
         drawAllBtn.disabled = false;
-        drawAllBtn.style.opacity = '1';
-        
-        // Remove instruction
+
         const instruction = document.querySelector('.individual-instruction');
-        if (instruction) {
-            instruction.remove();
-        }
+        if (instruction) instruction.remove();
+        updateDrawControls();
     }
 }
 
@@ -489,17 +487,28 @@ function goToStep(step) {
 
 function updateStepIndicators(activeStep) {
     const indicators = document.querySelectorAll('.step-indicator');
-    
+
     indicators.forEach((indicator, index) => {
         const stepNumber = index + 1;
-        
         indicator.classList.remove('active', 'completed');
-        
+
         if (stepNumber === activeStep) {
             indicator.classList.add('active');
         } else if (stepNumber < activeStep) {
             indicator.classList.add('completed');
         }
+    });
+    updateStepLocks();
+}
+
+function updateStepLocks() {
+    document.querySelectorAll('.step-indicator').forEach((indicator) => {
+        const stepNumber = Number(indicator.dataset.step);
+        const coreReady = allCoreCardsDrawn();
+        const canGo = stepNumber === 1
+            || (coreReady && stepNumber <= currentStep)
+            || (coreReady && stepNumber === currentStep + 1);
+        indicator.disabled = !canGo;
     });
 }
 
@@ -544,9 +553,9 @@ function updateConceptSummaries(step) {
     // Build concept display - different messages for different steps
     let conceptDisplayText;
     if (step === 2) {
-        conceptDisplayText = conceptText || 'Use the design elements above to create your speculative system. Describe your concept in the text area below.';
+        conceptDisplayText = conceptText || 'Describe your concept in the field below.';
     } else {
-        conceptDisplayText = conceptText || 'No concept description provided yet. Go back to Step 2 to add your concept description.';
+        conceptDisplayText = conceptText || 'No concept written yet — go back to Design to add one.';
     }
     
     summaryContainer.innerHTML = `
@@ -563,15 +572,38 @@ function updateConceptSummaries(step) {
     `;
 }
 
-function checkCanProceed() {
-    const hasCards = CORE_CATEGORIES.some(category => drawnCards[category] !== null);
-    nextToStep2Btn.disabled = !hasCards;
-    
-    if (hasCards) {
-        nextToStep2Btn.title = "Continue to design phase";
+function allCoreCardsDrawn() {
+    return CORE_CATEGORIES.every(category => drawnCards[category] !== null);
+}
+
+function updateDrawControls() {
+    const hint = document.getElementById('controlsHint');
+    const complete = allCoreCardsDrawn();
+
+    if (complete) {
+        drawAllBtn.textContent = 'Redraw All';
+        drawAllBtn.title = 'Redraw all five core cards';
+        if (hint) hint.textContent = 'All core cards drawn. Continue — or swap / add a Twist.';
     } else {
-        nextToStep2Btn.title = "Draw at least one card to continue";
+        const count = CORE_CATEGORIES.filter(c => drawnCards[c]).length;
+        drawAllBtn.textContent = 'Draw Cards';
+        drawAllBtn.title = 'Draw one card from each core category';
+        if (hint) {
+            hint.textContent = count
+                ? `${count}/5 core cards drawn. Draw the rest or swap individual cards.`
+                : 'Draw all five core cards to continue.';
+        }
     }
+}
+
+function checkCanProceed() {
+    const complete = allCoreCardsDrawn();
+    nextToStep2Btn.disabled = !complete;
+    nextToStep2Btn.title = complete
+        ? 'Continue to design'
+        : 'Draw all five core cards to continue';
+    updateDrawControls();
+    updateStepLocks();
 }
 
 function startNewGame() {
@@ -595,12 +627,5 @@ function startNewGame() {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('The Speculation Game loaded successfully!');
-    
-    // Add some visual feedback for loaded state
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
-        document.body.style.opacity = '1';
-    }, 100);
+    checkCanProceed();
 });
