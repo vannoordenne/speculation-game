@@ -350,27 +350,13 @@ function renderCard(category, card) {
     
     if (!cardElement) return;
     
-    // Update content first
-    let html = `<div class="card-title">${card.title}`;
-    if (card.subtitle) {
-        html += ` <span style="font-weight: normal; color: #666;">${card.subtitle}</span>`;
-    }
-    html += `</div>`;
-    
+    let html = `<div class="card-title">${card.title}</div>`;
     if (card.description) {
         html += `<div class="card-description">${card.description}</div>`;
     }
     
-    if (card.examples) {
-        html += `<div class="card-examples">${card.examples}</div>`;
-    }
-    
     cardElement.innerHTML = html;
-    
-    // Trigger the flip animation by adding filled class
     slot.classList.add('filled');
-    
-    // Check if we can proceed to next step
     checkCanProceed();
 }
 
@@ -408,10 +394,13 @@ function resetCards() {
         twist: null
     };
     
-    document.querySelectorAll('.card-content').forEach(content => {
+    document.querySelectorAll('.card-body').forEach(content => {
         const category = content.id.replace('Card', '');
         const label = CATEGORY_LABELS[category] || category;
-        content.innerHTML = `<div class="draw-prompt">Click "Draw Cards" or "Swap Card" to reveal a ${label} card</div>`;
+        const prompt = category === 'twist'
+            ? 'Optional — click "Draw Twist" if the combination feels too easy'
+            : `Click "Draw Cards" or "Swap Card" to reveal a ${label} card`;
+        content.innerHTML = `<div class="draw-prompt">${prompt}</div>`;
     });
     
     document.querySelectorAll('.card-slot').forEach(slot => {
@@ -448,7 +437,7 @@ function toggleIndividualMode() {
                 color: #ffffff;
                 font-weight: normal;
                 text-align: center;
-                font-family: 'Share Tech Mono', 'Courier New', monospace;
+                font-family: 'IBM Plex Mono', monospace;
                 text-transform: uppercase;
                 letter-spacing: 1px;
                 font-size: 0.8rem;
